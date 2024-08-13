@@ -1,8 +1,13 @@
 <template>
     <page-head title="Register" />
 
+    
     <form @submit.prevent="submit">
-        <div class="space-y-4">
+        <div class="space-y-2">
+            <page-title class="text-primary">Register</page-title>
+            <page-description class="text-gray-500">Go on. Give us your details so you can get started.</page-description>
+        </div>
+        <div class="space-y-4 mt-10">
             <form-input
                 label="Name"
                 v-model="form.name"
@@ -39,21 +44,19 @@
                 :error="form.errors.password_confirmation"
             />
 
+            <base-button class="w-full btn--primary" :disabled="form.processing"> Register </base-button>
+
             <div class="flex items-center justify-end mt-4">
-                <nav-link
+                <p
                     :href="route('login')"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    class="text-sm text-gray-600 "
                 >
                     Already registered?
-                </nav-link>
 
-                <base-button
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
-                </base-button>
+                    <nav-link :href="route('login')" :class="{ 'opacity-25': form.processing }">
+                        Login
+                    </nav-link>
+                </p>
             </div>
         </div>
     </form>
