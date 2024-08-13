@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\ProductPhotoController as AdminProductPhotoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -22,14 +23,20 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('dashboard/index');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
 
 Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function () {
 
     Route::resources([
+        "products" => AdminProductController::class,
         "categories" => AdminCategoryController::class,
     ]);
+
+    Route::post('/product-photos/{product}', [AdminProductPhotoController::class, 'store'])->name('products.photo.store');
+    Route::delete('/product-photos/{product}', [AdminProductPhotoController::class, 'destroy'])->name('products.photo.destroy');
 });
 
 Route::get('/help', [HomeController::class, 'help']);
