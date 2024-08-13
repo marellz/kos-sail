@@ -2,19 +2,21 @@
     <div>
         <form-label v-if="label" :for="id">
            {{ label }}
-           <span v-if="required" class="text-error">&ast;</span>
+            <span v-if="required" class="text-error">&ast;</span>
        </form-label>
-       <div>
-           <input
+       <div class="relative">
+           <select
                class="form-input"
                :class="{'form-input--error': error!== undefined}"
                v-model="model"
-               :type
                :id
                :disabled
                :required
                ref="input"
-           />
+           >
+           <option :value="null" :disabled="required">{{ placeholder }}</option>
+           <slot></slot>
+        </select>
        </div>
        <form-error class="mt-1" v-if="error">{{ error }}</form-error>
     </div>
@@ -27,15 +29,17 @@ withDefaults(defineProps<{
     label?: string | undefined;
     error?: string | undefined;
     type?: string | undefined;
-    disabled?: boolean;
-    required?: boolean;
+    placeholder?: string;
+    disabled?: boolean
+    required?: boolean
 }>(), {
-    type: 'text'
+    type: 'text',
+    placeholder: 'Select option',
 })
 
 const id = useId()
 
-const model = defineModel<string|null| undefined>({ required: true });
+const model = defineModel<string|null|undefined>({ required: true, default: null });
 
 const input = ref<HTMLInputElement | null>(null);
 

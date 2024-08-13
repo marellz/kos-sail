@@ -6,7 +6,7 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
     type ?: "submit" | "button" | undefined;
-    disabled: boolean
+    disabled?: boolean
 }>(), {
     type: undefined
 })

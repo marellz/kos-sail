@@ -1,96 +1,103 @@
 <template>
     <Teleport to="body">
         <Transition leave-active-class="duration-200">
-            <div v-show="show" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
-                <Transition
-                    enter-active-class="ease-out duration-300"
-                    enter-from-class="opacity-0"
-                    enter-to-class="opacity-100"
-                    leave-active-class="ease-in duration-200"
-                    leave-from-class="opacity-100"
-                    leave-to-class="opacity-0"
+            <div
+                v-show="show"
+                class="fixed inset-0 p-2 sm:px-4 md:p-0 md:py-6 z-50"
+                scroll-region
+            >
+                <div
+                    v-show="show"
+                    class="fixed inset-0 transform transition-all"
+                    @click="close"
                 >
-                    <div v-show="show" class="fixed inset-0 transform transition-all" @click="close">
-                        <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75" />
-                    </div>
-                </Transition>
+                    <div class="absolute inset-0 bg-light-primary opacity-20" />
+                </div>
 
-                <Transition
-                    enter-active-class="ease-out duration-300"
-                    enter-from-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    enter-to-class="opacity-100 translate-y-0 sm:scale-100"
-                    leave-active-class="ease-in duration-200"
-                    leave-from-class="opacity-100 translate-y-0 sm:scale-100"
-                    leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                <div
+                    v-show="show"
+                    class="bg-white rounded-t md:rounded-l-md overflow-auto shadow-xl transform transition-all sm:w-full sm:ml-auto h-full py-6 md:py-10"
+                    :class="maxWidthClass"
                 >
+                    <!-- header -->
                     <div
-                        v-show="show"
-                        class="mb-6 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto"
-                        :class="maxWidthClass"
+                        class="flex justify-between text-light-grey px-6 md:px-10"
                     >
+                        <p class="">{{ modalRole }}</p>
+                        <button type="button" @click="close">
+                            <XCircleIcon class="h-6" />
+                        </button>
+                    </div>
+                    <div class="px-6 py-4 md:px-10 md:py-5">
                         <slot v-if="show" />
                     </div>
-                </Transition>
+                </div>
             </div>
         </Transition>
     </Teleport>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, watch } from 'vue';
-
+import { XCircleIcon } from "@heroicons/vue/24/outline";
+import { computed, onMounted, onUnmounted, watch } from "vue";
+import { useScrollLock } from "@vueuse/core";
 const props = withDefaults(
     defineProps<{
         show?: boolean;
-        maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+        maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl";
         closeable?: boolean;
+        modalRole?: string;
     }>(),
     {
         show: false,
-        maxWidth: '2xl',
+        maxWidth: "2xl",
         closeable: true,
+        modalRole: "View form",
     }
 );
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
+const lock = useScrollLock(document);
 
 watch(
     () => props.show,
-    () => {
-        if (props.show) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'visible';
-        }
+    (v) => {
+        lock.value = v;
     }
 );
 
 const close = () => {
     if (props.closeable) {
-        emit('close');
+        emit("close");
     }
 };
 
 const closeOnEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && props.show) {
+    if (e.key === "Escape" && props.show) {
         close();
     }
 };
 
-onMounted(() => document.addEventListener('keydown', closeOnEscape));
+onMounted(() => {
+    document.addEventListener("keydown", closeOnEscape);
+    if(props.show) {
+        lock.value = true;
+    }
+});
 
 onUnmounted(() => {
-    document.removeEventListener('keydown', closeOnEscape);
-    document.body.style.overflow = 'visible';
+    document.removeEventListener("keydown", closeOnEscape);
+    if(!props.show || !lock.value) {
+        lock.value = false;
+    }
 });
 
 const maxWidthClass = computed(() => {
     return {
-        sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
-        lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
+        sm: "sm:max-w-sm",
+        md: "sm:max-w-md",
+        lg: "sm:max-w-lg",
+        xl: "sm:max-w-xl",
+        "2xl": "sm:max-w-2xl",
     }[props.maxWidth];
 });
 </script>
-

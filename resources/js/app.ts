@@ -14,8 +14,8 @@ createInertiaApp({
                 eager: true,
             }),
             page = pages[`./pages/${name}.vue`];
-            
-        if (!page.default.layout) {
+
+        if (!page.default?.layout) {
             page.default.layout = DefaultLayout;
         }
 

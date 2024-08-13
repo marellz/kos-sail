@@ -1,8 +1,8 @@
 <template>
     <div class="relative">
-        <div @click="open = !open">
+        <button type="button" class="inline-flex items-center space-x-3 w-full px-5 py-2" @click="open = !open">
             <slot name="trigger" />
-        </div>
+        </button>
 
         <!-- Full Screen Dropdown Overlay -->
         <div v-show="open" class="fixed inset-0 z-40" @click="open = false"></div>
@@ -23,7 +23,7 @@
                 @click="open = false"
             >
                 <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
-                    <slot name="content" />
+                    <slot />
                 </div>
             </div>
         </Transition>

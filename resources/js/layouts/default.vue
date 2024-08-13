@@ -1,19 +1,13 @@
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-        <div>
-            <nav-link href="/">
-                <base-logo class="w-20 h-20 fill-current text-gray-500" />
-            </nav-link>
-        </div>
-
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"
-        >
+    <div class="pt-9 text-dark min-h-screen flex flex-col">
+        <layout-header />
+        <main class="flex-auto py-20">
             <slot />
-        </div>
+        </main>
+        <layout-footer />
     </div>
 </template>
 <script setup lang="ts">
+import LayoutHeader from "@/components/layout/header.vue";
+import LayoutFooter from "@/components/layout/footer.vue";
 </script>
-
-
