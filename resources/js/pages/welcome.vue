@@ -1,9 +1,10 @@
 <template>
     <page-head title="Home" />
 
-    <div>
+    <layout-container>
         <h1>Homepage</h1>
-    </div>
+        <div class="polygon"></div>
+    </layout-container>
     
 </template>
 <script setup lang="ts">
