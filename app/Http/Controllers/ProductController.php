@@ -48,6 +48,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->visit();
+
         return Inertia::render('products/show',[
             'product' => new ProductResource($product),
         ]);
