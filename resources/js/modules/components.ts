@@ -17,12 +17,16 @@ import BaseDropdownLink from "@/components/base/dropdown-link.vue";
 import BaseLogo from "@/components/base/logo.vue";
 import BaseModal from "@/components/base/modal.vue";
 
+import IconsPolygon from "@/components/icons/polygon.vue";
+import IconsWavy from "@/components/icons/wavy.vue";
+
 import PageHead from "@/components/page/head.vue";
 import PageTitle from "@/components/page/title.vue";
 import PageDescription from "@/components/page/description.vue";
 import LayoutContainer from "@/components/page/container.vue";
 import NavResponsiveLink from "@/components/nav/responsive-link.vue";
 import NavLink from "@/components/nav/link.vue";
+import NavCta from "@/components/nav/cta.vue";
 import Pagination from "@/components/nav/pagination.vue";
 
 export const components = {
@@ -44,8 +48,12 @@ export const components = {
     "dropdown-link": BaseDropdownLink,
     "base-modal": BaseModal,
     "base-logo": BaseLogo,
+
+    "icons-polygon": IconsPolygon,
+    "icons-wavy": IconsWavy,
     
     "nav-link": NavLink,
+    "nav-cta": NavCta,
     "nav-responsive-link": NavResponsiveLink,
     "pagination": Pagination,
 

@@ -1,18 +1,317 @@
 <template>
     <page-head title="Home" />
 
-    <layout-container>
-        <h1>Homepage</h1>
-        <div class="polygon"></div>
-    </layout-container>
-    
+    <div
+        class="bg-primary bg-opacity-5 mx-6 rounded-xl pt-6 relative overflow-hidden"
+    >
+        <layout-header></layout-header>
+        <layout-container class="pt-32">
+            <div class="grid grid-cols-2">
+                <div class="pb-20">
+                    <icons-wavy class="mb-5 text-primary" />
+                    <div class="space-y-10">
+                        <h1
+                            class="text-[60px] uppercase leading-[71px] font-medium"
+                        >
+                            WELCOME TO
+                            <span class="font-bold text-primary"
+                                >KIRINYAGA</span
+                            >
+                            ONLINE STORES
+                        </h1>
+                        <p class="text-3xl">
+                            Your trusted source for quality tools & equipment.
+                        </p>
+                        <nav-link
+                            :href="route('products.index')"
+                            as="button"
+                            class="btn btn--lg btn--primary"
+                        >
+                            <span>Browse tools</span>
+                        </nav-link>
+                    </div>
+                </div>
+                <div>
+                    <img src="@/assets/images/drill-xl.png" alt="" />
+                </div>
+            </div>
+        </layout-container>
+        <img
+            class="left-1/2 absolute bottom-0 transform -translate-x-1/2 opacity-50 translate-y-1/2"
+            src="@/assets/images/waves-2.svg"
+            alt=""
+        />
+    </div>
+
+    <div class="py-20">
+        <layout-container>
+            <home-title>Explore products</home-title>
+            <home-tabs class="mt-5" :tabs="productTabs" @change="getChunks">
+                <template #new>
+                    <div class="grid grid-cols-4 gap-5">
+                        <product-card
+                            :product
+                            v-for="product in products"
+                            :key="`product-${product.id}`"
+                        ></product-card>
+                    </div>
+                </template>
+                <template #popular>
+                    <div class="grid grid-cols-4 gap-5">
+                        <product-card
+                            :product
+                            v-for="product in products"
+                            :key="`product-${product.id}`"
+                        ></product-card>
+                    </div>
+                </template>
+            </home-tabs>
+            <div class="mt-20">
+                <nav-cta :href="route('products.index')">Show more</nav-cta>
+            </div>
+        </layout-container>
+    </div>
+
+    <home-wrap class="bg-light-alt bg-opacity-30">
+        <home-title>Ready to take your game to the next level?</home-title>
+        <p class="text-gray-500">
+            Start browsing our collection now and discover:
+        </p>
+
+        <div class="my-10 grid grid-cols-5">
+            <div
+                v-for="(b, index) in dList"
+                :key="index"
+                class="col-span-2 p-5 flex items-center space-x-4"
+                :class="{
+                    'col-start-2':
+                        (index + 1) % 2 !== 0 && (index + 1) % 3 === 0,
+                }"
+            >
+                <span class="w-24 h-24 rounded-full bg-white flex-none"></span>
+                <p class="text font-light">
+                    {{ b.details }}
+                </p>
+            </div>
+        </div>
+
+        <img
+            src="@/assets/images/wavy-lg.svg"
+            class="absolute left-0 top-2/3"
+        />
+    </home-wrap>
+    <home-wrap class="bg-primary bg-opacity-10">
+        <home-title>About us</home-title>
+        <div class="leading-7 space-y-5 mt-12">
+            <p>
+                At Kirinyaga Online Stores, we make home improvement easy.
+                Whether you're a seasoned DIY enthusiast or just starting your
+                journey in home maintenance, we've got everything you need to
+                tackle projects big and small. From essential hand tools to
+                advanced power equipment, we're dedicated to providing
+                top-quality products that empower you to transform your living
+                space with confidence.
+            </p>
+            <p>
+                Explore our extensive catalog of tools and equipment, carefully
+                curated to meet the diverse needs of homeowners like you. With a
+                focus on durability, performance, and affordability, we're
+                committed to delivering value that exceeds your expectations. At
+                Kirinyaga Online Stores, we believe that every home and workshop
+                deserves the best, and we're here to help you make it happen.
+            </p>
+        </div>
+
+        <img
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2"
+            src="@/assets/images/waves-2.svg"
+            alt=""
+        />
+    </home-wrap>
+
+    <home-wrap>
+        <home-title>For any inquiry/assistance</home-title>
+        <div class="grid grid-cols-3 mt-20">
+            <div>
+                <h4>Reach out on</h4>
+                <icons-wavy class="text-primary" />
+                <div class="mt-10">
+                    <ul class="space-y-2">
+                        <li v-for="{ type: typ, contact, label } in contacts">
+                            <a
+                                class="inline-flex items-center space-x-4 hover:text-primary"
+                                :href="`${typ}:${contact}`"
+                            >
+                                <component class="h-5" :is="contactIcon(typ)" />
+                                <span>
+                                    {{ label }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-span-2 pl-10 border-l">
+                <form @submit.prevent="submitContact">
+                    <div class="grid grid-cols-2 gap-5">
+                        <form-input
+                            class="col-span-2"
+                            label="Name"
+                            placeholder="e.g. John Kamau"
+                            required
+                            v-model="contactForm.name"
+                        ></form-input>
+                        <form-input
+                            type="email"
+                            placeholder="e.g. john.kamau@example.com"
+                            label="Email"
+                            required
+                            v-model="contactForm.email"
+                        ></form-input>
+                        <form-input
+                            label="Phone"
+                            placeholder="e.g. +254 7xx xxxxxx"
+                            required
+                            v-model="contactForm.phone"
+                        ></form-input>
+                        <form-text
+                            placeholder="Write your message here"
+                            class="col-span-2"
+                            required
+                            label="Message"
+                            v-model="contactForm.message"
+                        ></form-text>
+
+                        <div class="col-span-2">
+                            <base-button class="btn--primary" type="submit">
+                                <span>Submit message</span>
+                                <PaperAirplaneIcon class="h-5" />
+                            </base-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </home-wrap>
+
+    <layout-footer />
 </template>
 <script setup lang="ts">
+import Blank from "@/layouts/blank.vue";
+import LayoutHeader from "@/components/layout/header.vue";
+import LayoutFooter from "@/components/layout/footer.vue";
+import HomeTitle from "@/components/home/title.vue";
+import HomeTabs from "@/components/home/tabs.vue";
+import HomeWrap from "@/components/home/wrap.vue";
+import ProductCard from "@/components/client/product/card.vue";
+import { ref } from "vue";
+import {
+    EnvelopeIcon,
+    PaperAirplaneIcon,
+    PhoneIcon,
+} from "@heroicons/vue/24/outline";
 
+import { Product } from "@/types/products";
+import { router } from "@inertiajs/vue3";
+
+const productTabs = ref([
+    {
+        key: "new",
+        label: "New products",
+    },
+    {
+        key: "popular",
+        label: "Popular products",
+    },
+]);
+defineOptions({
+    layout: Blank,
+});
 defineProps<{
-    canLogin?: boolean;
-    canRegister?: boolean;
+    products: Array<Product>;
+    chunk: string;
 }>();
 
-</script>
+enum ContactIcons {
+    Tel = "tel",
+    Email = "email",
+}
 
+interface Contact {
+    type: ContactIcons;
+    contact: string;
+    label: string;
+}
+
+const contacts: Array<Contact> = [
+    {
+        type: ContactIcons.Tel,
+        contact: "01231231",
+        label: "01231231",
+    },
+    {
+        type: ContactIcons.Email,
+        contact: "example@gm.com",
+        label: "example@gm.com",
+    },
+];
+
+const contactIcons = {
+    [ContactIcons.Tel]: PhoneIcon,
+    [ContactIcons.Email]: EnvelopeIcon,
+};
+
+const socials = [
+    {
+        type: "facebook",
+        name: "",
+        url: "",
+    },
+    {
+        type: "",
+        name: "",
+        url: "",
+    },
+];
+
+const dList = [
+    {
+        details:
+            "Expert advice and resources to guide you through your projects with ease.",
+    },
+    {
+        details:
+            "Power equipment for efficient landscaping, woodworking, and more.",
+    },
+    {
+        details:
+            "High-quality hand tools for everyday repairs and maintenance.",
+    },
+    {
+        details:
+            "Safety gear and accessories to ensure a secure and comfortable working environment.",
+    },
+];
+
+const contactIcon = (typ: ContactIcons) => {
+    return contactIcons[typ];
+};
+
+const contactForm = ref({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+});
+
+const submitContact = () => {};
+const getChunks = (chunk: string) => {
+    router.visit(route("home"), {
+        data: {
+            chunk,
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
+};
+</script>
