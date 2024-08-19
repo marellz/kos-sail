@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
 Route::get('/help', [HomeController::class, 'help']);
 Route::get('/docs', [HomeController::class, 'docs']);
 });
