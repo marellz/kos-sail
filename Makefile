@@ -12,3 +12,9 @@ fresh:
 
 seed:
 	./vendor/bin/sail artisan db:seed
+
+route-cache:
+	./vendor/bin/sail artisan route:cache
+
+route-list:
+	./vendor/bin/sail artisan route:list
