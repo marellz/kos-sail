@@ -13,6 +13,7 @@
                :resize
                :disabled
                :required
+               :placeholder
                :rows
                ref="input"
            />
@@ -28,6 +29,7 @@ withDefaults(defineProps<{
     label?: string | undefined;
     error?: string | undefined;
     type?: string | undefined
+    placeholder?: string | undefined
     resize?: boolean;
     required?: boolean;
     disabled?: boolean;

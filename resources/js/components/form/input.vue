@@ -11,6 +11,7 @@
                v-model="model"
                :type
                :id
+               :placeholder
                :disabled
                :required
                ref="input"
@@ -27,6 +28,7 @@ withDefaults(defineProps<{
     label?: string | undefined;
     error?: string | undefined;
     type?: string | undefined;
+    placeholder?: string | undefined;
     disabled?: boolean;
     required?: boolean;
 }>(), {
