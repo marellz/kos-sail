@@ -2,11 +2,11 @@
     <header>
         <layout-container>
             <div class="flex items-center">
-                <nav-link href="/">
-                    <base-logo class="h-24" />
+                <nav-link href="/" class="text-primary">
+                    <base-logo class="h-12" />
                 </nav-link>
 
-                <div class="flex ml-9 space-x-5">
+                <div class="flex ml-12 space-x-5">
                     <nav-link
                         v-for="(link, index) in links"
                         :key="index"
@@ -26,9 +26,22 @@
                         <MagnifyingGlassIcon class="h-6" />
                         <span>Search</span>
                     </button>
-                    <nav-link as="button" class="btn btn--primary" href="/login">Login</nav-link>
+                    <nav-link
+                        v-if="!$page.props.auth.user"
+                        as="button"
+                        class="btn btn--primary"
+                        href="/login"
+                        >Login</nav-link
+                    >
+                    <nav-link
+                        v-else
+                        as="button"
+                        class="btn btn--outline-primary"
+                        method="post"
+                        href="/logout"
+                        >Logout</nav-link
+                    >
                 </div>
-                
             </div>
         </layout-container>
     </header>
@@ -40,7 +53,7 @@ const links = ref([
     {
         path: "/products",
         label: "Browse",
-        components: ["browse/index"],
+        components: ["products/index", "products/show"],
     },
     {
         path: "/categories",

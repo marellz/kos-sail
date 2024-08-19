@@ -821,12 +821,6 @@ class ProductSeeder extends Seeder
             ProductBrand::create(['name' => $brand]);
         }
 
-
-        // foreach ($specifications as $spec) {
-        //     ProductSpecification::create(['name' => $spec]);
-        // }
-
-
         foreach (collect($products)->pluck(['specifications']) as $specs) {
             foreach(json_decode($specs) as $spec => $val){
                 if(!ProductSpecification::where('name', $spec)->exists()){
@@ -835,6 +829,10 @@ class ProductSeeder extends Seeder
                     ]);
                 }
             }
+        }
+
+        foreach ($products as $product) {
+            Product::create($product);
         }
     }
 }

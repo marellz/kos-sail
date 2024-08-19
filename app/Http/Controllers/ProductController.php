@@ -4,74 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
+use App\Services\CategoryService;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function __construct (
+    public function __construct(
         private readonly ProductService $service,
-    )
-    {
-        
+        private readonly CategoryService $categoryService,
+    ) {
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'order_by' => ['nullable'],
+            'category_id' => ['nullable', 'int'],
+            'query' => ['nullable'],
+            'price_max' => ['nullable', 'int'],
+            'price_min' => ['nullable', 'int','lt:price_max'],
+        ]);
+
+        $products = $this->service->filter(collect($validated))->paginate(12);
+
         return inertia('products/index', [
-            'products' => $this->service->all(),
+            'products' => new ProductCollection($products),
+            'categories' => Category::all(),
+            'filtered' => $filters ?? [],
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
      */
     public function show(Product $product)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        return Inertia::render('products/show',[
+            'product' => new ProductResource($product),
+        ]);
     }
 }

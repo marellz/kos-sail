@@ -48,3 +48,11 @@ export interface ProductSpecification {
     name: string;
     id: number;
 }
+
+export interface ProductFilters {
+    order_by?: string;
+    category_id?: number;
+    query?: string;
+    price_max?: number;
+    price_min?: number;
+}
