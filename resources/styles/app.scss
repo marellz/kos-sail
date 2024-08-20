@@ -25,54 +25,57 @@
         }
 
         &--secondary {
-            @apply bg-gray-800 text-white active:bg-gray-900 hover:bg-gray-700 focus:bg-gray-700 active:text-white hover:text-white focus:text-white focus:ring-gray-500 
+            @apply bg-gray-800 text-white active:bg-gray-900 hover:bg-gray-700 focus:bg-gray-700 active:text-white hover:text-white focus:text-white focus:ring-gray-500;
         }
 
         &--outline-secondary {
-            @apply border-gray-800 text-gray-800 active:bg-gray-900 hover:bg-gray-700 focus:bg-gray-700 active:text-white hover:text-white focus:text-white focus:ring-gray-500 
+            @apply border-gray-800 text-gray-800 active:bg-gray-900 hover:bg-gray-700 focus:bg-gray-700 active:text-white hover:text-white focus:text-white focus:ring-gray-500;
         }
 
         &--danger {
             @apply bg-red-500 text-white;
         }
 
-        &--lg{
-            @apply text-xl leading-7 py-4 px-10;
+        &--sm{
+            @apply text-sm py-1 px-2;
         }
 
+        &--lg {
+            @apply text-xl leading-7 py-4 px-10;
+        }
     }
 
-    .form-input{
+    .form-input {
         @apply block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md disabled:bg-gray-50 disabled:border-gray-200 disabled:cursor-not-allowed placeholder:text-sm;
 
-        &--search{
+        &--search {
             @apply pl-12;
         }
 
-        &--error{
+        &--error {
             @apply border-red-500 focus:ring-red-300;
         }
     }
 
-    .products-table{
+    .products-table {
         @apply table w-full;
 
-        th{
+        th {
             @apply bg-light-alt-primary first:rounded-l-lg last:rounded-r-lg text-xs font-medium px-5 py-3.5 text-grey text-left;
         }
 
-        td{
+        td {
             @apply px-5 py-3.5 border-b align-middle first:rounded-l-lg last:rounded-r-lg;
         }
 
-        .row--active{
-            td{
+        .row--active {
+            td {
                 @apply bg-gray-200;
             }
         }
     }
 
-    .form-card{
+    .form-card {
         @apply bg-white p-8 rounded-lg border border-gray-100;
     }
 }
