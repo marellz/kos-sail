@@ -30,6 +30,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $cartItems = $request->session()->get('cart', []);
         return [
             ...parent::share($request),
             'auth' => [
@@ -39,6 +40,8 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'cart' => $cartItems,
+        
         ];
     }
 }

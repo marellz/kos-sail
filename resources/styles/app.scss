@@ -78,4 +78,27 @@
     .form-card {
         @apply bg-white p-8 rounded-lg border border-gray-100;
     }
+
+    .cart-table{
+        @apply border-separate border-spacing-y-4;
+        th{
+            @apply font-medium text-left text-sm;
+        }
+        th, td{
+            @apply px-4
+        }
+
+        .subtotal-row td{
+            @apply py-4 border-y;
+        }
+    }
+
+    input.appearance-none {
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: textfield !important;
+            margin: 0;
+        }
+    }
 }

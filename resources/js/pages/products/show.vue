@@ -76,7 +76,11 @@
                         />
                     </div>
                     <div>
-                        <base-button class="btn--primary" :disabled="!inStock">
+                        <base-button
+                            class="btn--primary"
+                            :disabled="!inStock"
+                            @click="makePurchase"
+                        >
                             <span> Purchase </span>
                             <ShoppingBagIcon class="h-5" />
                         </base-button>
@@ -170,5 +174,12 @@ const _product = computed(() => props.product.data);
 const inStock = computed(() => _product.value.in_stock);
 const pageName = computed(() => props.product.data.name ?? "Product page");
 const favorited = ref(Math.random() > 0.5);
-const discountPrice =  computed(() => _product.value.discount_price)
+const makePurchase = () => {
+    router.visit(route("cart.index"), {
+        method: "post",
+        data: {
+            item: _product.value.slug,
+        },
+    });
+};
 </script>

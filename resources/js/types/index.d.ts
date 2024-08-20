@@ -1,4 +1,5 @@
 import { Config } from 'ziggy-js';
+import { CartItem } from './cart';
 
 export interface User {
     id: number;
@@ -12,4 +13,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
     ziggy: Config & { location: string };
+    cart?: Array<CartItem>
 };

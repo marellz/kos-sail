@@ -5,20 +5,37 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductPhotoController as AdminProductPhotoController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Client
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
+// Route::resource('cart', CartController::class);
+Route::controller(CartController::class)
+    ->name('cart.')
+    ->prefix('cart')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::patch('/', 'update')->name('update');
+        Route::get('/reset', 'reset')->name('reset');
+        Route::delete('/delete/{slug}', 'destroy')->name('destroy');
+    });
+
 Route::get('/help', [HomeController::class, 'help']);
 Route::get('/docs', [HomeController::class, 'docs']);
+
+// Admin
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
