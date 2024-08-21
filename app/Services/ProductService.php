@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Collection;
 
@@ -34,7 +35,10 @@ class ProductService
         $number = 4;
         switch ($chunkBy) {
             case 'popular':
-                $products =  Product::inRandomOrder()->limit($number)->get();
+                $products =  Product::popularAllTime()->where([
+                    'in_stock' => true,
+                    'visible' => true
+                ])->limit($number)->get();
                 break;
 
             default: // new
@@ -60,24 +64,15 @@ class ProductService
          * 
          */
 
-
-
         $category = $filters->get('category_id');
         $query = $filters->get('query');
         $maxPrice = $filters->get('price_max');
         $minPrice = $filters->get('price_min');
 
-
         $products = Product::where('visible', true);
 
         if ($category) {
             $products = $products->where('category_id', $category);
-        }
-
-        if ($query) {
-            $products = $products->where('name', 'LIKE', '%' . $query . '%')
-                ->orWhere('short_description', 'LIKE', '%' . $query . '%')
-                ->orWhere('description', 'LIKE', '%' . $query . '%');
         }
 
         if ($maxPrice) {
@@ -86,6 +81,16 @@ class ProductService
 
         if ($minPrice) {
             $products = $products->where('price', '>=', $minPrice);
+        }
+
+        if ($query) {
+            $products =  $products->where(
+                function ($builder) use ($query) {
+                    $builder->where('name', 'LIKE', '%' . $query . '%')
+                        ->orWhere('short_description', 'LIKE', '%' . $query . '%')
+                        ->orWhere('description', 'LIKE', '%' . $query . '%');
+                }
+            );
         }
 
         /**
@@ -135,6 +140,62 @@ class ProductService
 
 
         return $products;
+    }
+
+    public function getFilters (array $filter_values)
+    {
+        $filtered = collect([]);
+
+        $filterValueKeys = [
+            'order_by' => 'Order by',
+            'category_id' => 'Category',
+            'query' => 'Keyword',
+            'price_max' => 'Max price',
+            'price_min' => 'Min price',
+        ];
+
+        $orderByValueKeys = [
+            "alphabetical_asc" => "Alphabetical(ascending)",
+            "alphabetical_desc" =>  "Alphabetical(descending)",
+            "price_desc" => "Price(descending)",
+            "price_asc" => "Price(ascending)",
+            "newest" => "Date added(latest)",
+            "oldest" => "Date added(oldest)",
+        ];
+
+        foreach ($filter_values as $key => $value) {
+            $val = '';
+            switch ($key) {
+                case 'price_min':
+                case 'price_max':
+                    $val = 'Ksh. ' . number_format($value);
+                    break;
+
+                case 'category_id':
+                    $val = Category::findOrFail($value)->name;
+                    break;
+
+                case 'query':
+                    $val = '"' . $value . '"';
+                    break;
+
+                case "order_by":
+                    $val = $orderByValueKeys[$value];
+                    break;
+
+                default:
+                    $val = $value;
+                    break;
+            }
+            $filtered->push([
+                'key' => $key,
+                'label' => $filterValueKeys[$key],
+                'value' => $val
+            ]);
+
+        }
+        
+        return $filtered;
     }
 
     public function resource(Product $product): ProductResource

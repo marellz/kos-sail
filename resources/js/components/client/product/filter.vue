@@ -3,28 +3,34 @@
         <div class="flex items-center mb-4">
             <h3 class="text-xl font-medium">Filters</h3>
             <div class="flex space-x-2 ml-auto">
-                <button type="reset" class="p-1" @click="reset">
+                <button type="reset" class="btn btn--sm" @click="reset">
+                    <span>Reset</span>
                     <ArrowPathIcon class="h-5" />
-                </button>
-                <button type="button" class="p-1" @click="close">
-                    <XMarkIcon class="h-5" />
                 </button>
             </div>
         </div>
+
         <img class="mb-8" src="@/assets/images/wavy.svg" alt="" />
 
         <div
             v-if="Object.keys(errors).length"
-            class="my-4 py-2  px-2 text-error flex items-center space-x-2 bg-red-100 rounded"
+            class="my-4 py-2 px-2 text-error bg-red-100 rounded-lg"
         >
-        <ExclamationTriangleIcon class="h-5" />
-            <p class="px-2 border-l border-error text-xs" v-for="(error, index) in errors" :key="index">
-                {{ error }}
-            </p>
+            <div class="flex items-center space-x-4 py-2">
+                <ExclamationTriangleIcon class="h-6" />
+                <h4 class="text-sm font-medium">Filter errors</h4>
+            </div>
+            <ul class="space-y-2 list-disc pl-5">
+                <li v-for="(error, index) in errors" :key="index">
+                    <p class="text-xs">
+                        {{ error }}
+                    </p>
+                </li>
+            </ul>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2">
-                <form-input label="Search" v-model="filters.query" />
+                <form-input label="Keyword" v-model="filters.query" />
             </div>
             <div class="col-span-2">
                 <form-select
@@ -37,7 +43,10 @@
                         :key="`category-${category.id}`"
                         :value="category.id"
                     >
-                        {{ category.name }}
+                        <span>
+                            {{ category.parent_id ? "-" : "" }}
+                            {{ category.name }}
+                        </span>
                     </option>
                 </form-select>
             </div>
@@ -69,7 +78,9 @@
                 </form-select>
             </div>
             <div class="col-span-2">
-                <base-button :disabled="!canApplyFilter" class="btn--outline-primary w-full"
+                <base-button
+                    :disabled="!canApplyFilter"
+                    class="btn--outline-primary w-full"
                     >Apply</base-button
                 >
             </div>
@@ -79,26 +90,31 @@
 <script lang="ts" setup>
 import { Category } from "@/types/category";
 import { ProductFilters } from "@/types/products";
-import { ArrowPathIcon, ExclamationTriangleIcon, XMarkIcon } from "@heroicons/vue/24/outline";
-import { computed,ref } from "vue";
+import {
+    ArrowPathIcon,
+    ExclamationTriangleIcon,
+} from "@heroicons/vue/24/outline";
+import { router } from "@inertiajs/vue3";
+import { computed, ref, onMounted } from "vue";
 
-defineProps<{
+const props = defineProps<{
     categories: Array<Category>;
-    filtered: {
-        [key in keyof ProductFilters]: string | number;
-    };
+    filteredValues: ProductFilters;
     errors: {
         [key in keyof ProductFilters]: string;
     };
 }>();
 
-const form = ref()
+const form = ref();
 
-const emit = defineEmits(["submit","close"]);
-const filters = ref<ProductFilters>({});
+const emit = defineEmits(["submit", "close"]);
+
+const filters = defineModel<ProductFilters>({default: {}});
+
 const submit = () => {
     emit("submit", filters.value);
 };
+
 const orderByOptions = [
     {
         label: "Alphabetical(ascending)",
@@ -126,11 +142,19 @@ const orderByOptions = [
     },
 ];
 
-const canApplyFilter = computed(() => true)
+const canApplyFilter = computed(() => true);
+
 const reset = () => {
-    form.value.reset()
-}
-const close = () => {
-    emit('close')
-}
+    router.visit(route("products.index"), {
+        onSuccess() {
+            form.value.reset();
+        },
+    });
+};
+
+onMounted(() => {
+    if (Object.keys(props.filteredValues).length) {
+        filters.value = { ...props.filteredValues };
+    }
+});
 </script>

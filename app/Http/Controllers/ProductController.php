@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\ProductFilterRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
-use App\Models\Category;
-use App\Models\Product;
 use App\Services\CategoryService;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Product;
 use Inertia\Inertia;
+
 
 class ProductController extends Controller
 {
+
     public function __construct(
         private readonly ProductService $service,
         private readonly CategoryService $categoryService,
@@ -23,25 +23,29 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(ProductFilterRequest $request)
     {
-        $validated = $request->validate([
-            'order_by' => ['nullable'],
-            'category_id' => ['nullable', 'int'],
-            'query' => ['nullable'],
-            'price_max' => ['nullable', 'int'],
-            'price_min' => ['nullable', 'int','lt:price_max'],
+        $validated = $request->safe([
+            "order_by",
+            "category_id",
+            "query",
+            "price_max",
+            "price_min",
         ]);
 
-        $products = $this->service->filter(collect($validated))->paginate(12);
+        $products = $this->service->filter(collect($validated))->paginate(12)->withQueryString();
+
+        $filter_values = $validated ?? [];
+
+        $filtered = $this->service->getFilters($filter_values);
 
         return inertia('products/index', [
             'products' => new ProductCollection($products),
             'categories' => Category::all(),
-            'filtered' => $filters ?? [],
+            'filteredValues' => $filter_values,
+            'filtered' => $filtered
         ]);
     }
-
 
     /**
      * Display the specified resource.
@@ -50,7 +54,7 @@ class ProductController extends Controller
     {
         $product->visit();
 
-        return Inertia::render('products/show',[
+        return Inertia::render('products/show', [
             'product' => new ProductResource($product),
         ]);
     }
