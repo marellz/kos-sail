@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 
 class CategoryService
@@ -22,9 +21,13 @@ class CategoryService
         return Category::findOrFail($id);
     }
 
-    public function all ()
+    public function parents()
     {
-        return CategoryResource::collection(Category::whereNull('parent_id')->get());
+        return Category::whereNull('parent_id')->get();
+    }
+
+    public function all() {
+        return Category::all();
     }
 
     public function store (StoreCategoryRequest $request)

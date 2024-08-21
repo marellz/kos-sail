@@ -128,12 +128,12 @@
 <script lang="ts" setup>
 import Dashboard from "@/layouts/dashboard.vue";
 import AdminCategoryCard from "@/components/admin/categories/card.vue";
-import { computed, ref, onMounted } from "vue";
+import AdminAddButton from "@/components/admin/add-btn.vue";
 import { type Category, type CategoryForm } from "@/types/category";
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
-import AdminAddButton from "@/components/admin/add-btn.vue";
-import { router } from "@inertiajs/vue3";
 import { TrashIcon } from "@heroicons/vue/24/solid";
+import { computed, ref, onMounted } from "vue";
+import { router } from "@inertiajs/vue3";
 
 const props = withDefaults(
     defineProps<{

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryCollection;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Inertia\Inertia;
@@ -23,7 +22,7 @@ class CategoryController extends Controller
     {
         //
         return Inertia::render('categories/index', [
-            'categories' => $this->service->all(),
+            'categories' => new CategoryCollection($this->service->parents()),
         ]);
     }
 
