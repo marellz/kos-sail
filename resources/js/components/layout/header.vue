@@ -3,7 +3,7 @@
         <layout-container>
             <div class="flex items-center">
                 <nav-link href="/" class="text-primary">
-                    <base-logo class="h-12" />
+                    <base-logo class="h-12 w-auto" />
                 </nav-link>
 
                 <div class="flex ml-12 space-x-5">
@@ -73,7 +73,7 @@ import { computed, ref } from "vue";
 const links = ref([
     {
         path: "/products",
-        label: "Browse",
+        label: "Browse products",
         components: ["products/index", "products/show"],
     },
     {

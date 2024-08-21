@@ -9,7 +9,9 @@
                         <div
                             class="flex items-center space-x-8 absolute left-0 w-full bottom-0 p-4 justify-between"
                         >
-                            <div class="bg-primary bg-opacity-20 p-3 rounded-full text-lg font-medium text-primary">
+                            <div
+                                class="bg-primary bg-opacity-20 p-3 rounded-full text-lg font-medium text-primary"
+                            >
                                 {{ currentImage }} /
                                 {{ _product.images.length }}
                             </div>
@@ -56,11 +58,21 @@
                         <div class="flex mb-3">
                             <div class="flex items-center space-x-4">
                                 <div class="flex items-baseline">
-                                    <p class="text-2xl" :class="{'line-through text-gray-500 text-sm': discountPrice}">
-                                        Ksh. {{ _product.price.toLocaleString() }}
+                                    <p
+                                        class="text-2xl"
+                                        :class="{
+                                            'line-through text-gray-500 text-sm':
+                                                discountPrice,
+                                        }"
+                                    >
+                                        Ksh.
+                                        {{ _product.price.toLocaleString() }}
                                     </p>
-    
-                                    <p class="text-2xl ml-2 font-medium" v-if="discountPrice">
+
+                                    <p
+                                        class="text-2xl ml-2 font-medium"
+                                        v-if="discountPrice"
+                                    >
                                         {{ discountPrice.toLocaleString() }}
                                     </p>
                                 </div>
@@ -161,19 +173,24 @@
 import { type Product } from "@/types/products";
 import ProductAvailability from "@/components/client/product/availability.vue";
 import { computed } from "vue";
-import { HeartIcon, ShareIcon, ShoppingBagIcon } from "@heroicons/vue/24/outline";
+import {
+    HeartIcon,
+    ShareIcon,
+    ShoppingBagIcon,
+} from "@heroicons/vue/24/outline";
 import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
 const props = defineProps<{
-    product: {
-        data: Product;
-    };
+    product:  Product;
 }>();
 
 const currentImage = ref(1);
-const _product = computed(() => props.product.data);
+const _product = computed(() => props.product);
 const inStock = computed(() => _product.value.in_stock);
-const pageName = computed(() => props.product.data.name ?? "Product page");
+const pageName = computed(() => props.product.name ?? "Product page");
 const favorited = ref(Math.random() > 0.5);
+const discountPrice = computed(() => _product.value.discount_price);
+
 const makePurchase = () => {
     router.visit(route("cart.index"), {
         method: "post",

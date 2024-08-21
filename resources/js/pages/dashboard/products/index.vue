@@ -58,8 +58,7 @@ import ToggleView from "@/components/admin/products/toggle-view.vue";
 import ProductsTable from "@/components/admin/products/table.vue";
 import ProductCard from "@/components/admin/products/card.vue";
 import { router } from "@inertiajs/vue3";
-import { ref } from "vue";
-import { computed } from "vue";
+import { ref, computed } from "vue";
 
 defineOptions({
     layout: Dashboard,
