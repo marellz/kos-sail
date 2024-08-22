@@ -4,7 +4,7 @@
 
 @layer components {
     .btn {
-        @apply inline-flex items-center justify-center text-center px-7 py-2.5 leading-tight space-x-2 border border-transparent rounded-lg font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-25;
+        @apply inline-flex items-center justify-center text-center px-3 md:px-5 lg:px-7 py-2 lg:py-2.5 leading-tight space-x-2 border border-transparent rounded-lg font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-25;
 
         /*
         dark: 
@@ -41,7 +41,11 @@
         }
 
         &--lg {
-            @apply text-xl leading-7 py-4 px-10;
+            @apply md:text-lg lg:text-xl leading-7 py-2 md:py-3 px-6 md:px-8 lg:py-4 lg:px-10;
+        }
+
+        > svg{
+            @apply flex-none;
         }
     }
 
@@ -81,15 +85,54 @@
 
     .cart-table{
         @apply border-separate border-spacing-y-4;
+
+        tr{
+            @apply flex flex-wrap;
+        }
+
+        th, td{
+            @apply pr-2 lg:pr-4 md:table-cell last:pr-0;
+        }
+
+        tr{
+            @apply md:table-row;
+
+            td{
+                @apply last:border-b md:last:border-b-0;
+            }
+
+            &:last-child{
+                td{
+                    @apply last:border-b-0
+                }
+            }
+        }
+
+        thead tr{
+            @apply hidden md:table-row;
+        }
+        
         th{
             @apply font-medium text-left text-sm;
         }
-        th, td{
-            @apply px-4
+
+        td{
+            @apply py-4;
+        }
+
+        tfoot{
+            @apply block md:table-footer-group sticky bottom-0 -mx-4 px-4 md:px-0 md:mx-0 md:static md:bottom-auto;
+            @apply bg-white border-t;
+         
+            tr{
+                td{
+                    @apply flex-auto;
+                }
+            }
         }
 
         .subtotal-row td{
-            @apply py-4 border-y;
+            @apply py-4 md:border-y !border-b-0;
         }
     }
 

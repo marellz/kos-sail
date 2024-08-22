@@ -7,6 +7,9 @@
                     <span>Reset</span>
                     <ArrowPathIcon class="h-5" />
                 </button>
+                <button type="button" class="lg:hidden" @click="close">
+                    <XMarkIcon class="h-5" />
+                </button>
             </div>
         </div>
 
@@ -94,6 +97,7 @@ import {
     ArrowPathIcon,
     ExclamationTriangleIcon,
 } from "@heroicons/vue/24/outline";
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { router } from "@inertiajs/vue3";
 import { computed, ref, onMounted } from "vue";
 
@@ -151,6 +155,10 @@ const reset = () => {
         },
     });
 };
+
+const close = () => {
+    emit('close')
+}
 
 onMounted(() => {
     if (Object.keys(props.filteredValues).length) {

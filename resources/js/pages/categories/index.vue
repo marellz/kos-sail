@@ -3,7 +3,7 @@
     <layout-container>
         <page-title>Categories</page-title>
 
-        <div class="mt-10 grid grid-cols-3 gap-6">
+        <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <nav-link
                 :href="route('products.index', { category_id: category.id })"
                 v-for="(category, index) in categories"

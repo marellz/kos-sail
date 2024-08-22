@@ -5,39 +5,54 @@
         class="bg-primary bg-opacity-5 mx-6 rounded-xl pt-6 relative overflow-hidden"
     >
         <layout-header></layout-header>
-        <layout-container class="pt-32">
-            <div class="grid grid-cols-2">
-                <div class="pb-20">
+        <layout-container class="pt-12 lg:pt-16">
+            <div class="grid md:grid-cols-3">
+                <div class="pb-20 col-span-2">
                     <icons-wavy class="mb-5 text-primary" />
-                    <div class="space-y-10">
+                    <div class="space-y-5 lg:space-y-8">
                         <h1
-                            class="text-[60px] uppercase leading-[71px] font-medium"
+                            class="text-lg lg:text-[40px] uppercase lg:leading-[101px] xl:leading-[80px] font-medium"
                         >
                             WELCOME TO
-                            <span class="font-bold text-primary"
+                            <span
+                                class="font-bold text-primary text-4xl lg:text-[80px] block"
                                 >KIRINYAGA</span
                             >
                             ONLINE STORES
                         </h1>
-                        <p class="text-3xl">
+                        <p class="text-sm lg:text-3xl">
                             Your trusted source for quality tools & equipment.
                         </p>
-                        <nav-link
-                            :href="route('products.index')"
-                            as="button"
-                            class="btn btn--lg btn--primary"
+                        <div
+                            class="translate-y-[175%] md:translate-y-1/2 lg:translate-y-0 flex flex-col items-start space-y-5"
                         >
-                            <span>Browse tools</span>
-                        </nav-link>
+                            <nav-link
+                                :href="route('products.index')"
+                                as="button"
+                                class="btn btn--lg btn--primary"
+                            >
+                                <span>Browse tools</span>
+                            </nav-link>
+                            <nav-link
+                                class="inline-flex font-medium text-primary items-center"
+                            >
+                                <span>Expore categories</span>
+                                <icons-polygon
+                                    class="h-5 transform rotate-90"
+                                />
+                            </nav-link>
+                        </div>
                     </div>
                 </div>
-                <div>
+                <div
+                    class="relative z-10 -translate-y-2/3 transform scale-[1.7] translate-x-1/4 md:translate-y-1/4 lg:scale-[2] lg:translate-y-1/2 lg:-translate-x-1/2"
+                >
                     <img src="@/assets/images/drill-xl.png" alt="" />
                 </div>
             </div>
         </layout-container>
         <img
-            class="left-1/2 absolute bottom-0 transform -translate-x-1/2 opacity-50 translate-y-1/2"
+            class="bottom-0 -right-1/2 lg:left-1/2 absolute lg:bottom-0 transform lg:-translate-x-1/2 opacity-50 lg:translate-y-1/2"
             src="@/assets/images/waves-2.svg"
             alt=""
         />
@@ -48,7 +63,7 @@
             <home-title>Explore products</home-title>
             <home-tabs class="mt-5" :tabs="productTabs" @change="getChunks">
                 <template #new>
-                    <div class="grid grid-cols-4 gap-5">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                         <product-card
                             :product
                             v-for="product in products"
@@ -57,7 +72,7 @@
                     </div>
                 </template>
                 <template #popular>
-                    <div class="grid grid-cols-4 gap-5">
+                    <div class="grid md-grid-cols-2 lg:grid-cols-4 gap-5">
                         <product-card
                             :product
                             v-for="product in products"
@@ -74,22 +89,24 @@
 
     <home-wrap class="bg-light-alt bg-opacity-30">
         <home-title>Ready to take your game to the next level?</home-title>
-        <p class="text-gray-500">
+        <p class="text-xs lg:text-base text-gray-500 mt-2 lg:mt-4">
             Start browsing our collection now and discover:
         </p>
 
-        <div class="my-10 grid grid-cols-5">
+        <div class="my-5 lg:my-10 grid lg:grid-cols-5">
             <div
                 v-for="(b, index) in dList"
                 :key="index"
-                class="col-span-2 p-5 flex items-center space-x-4"
+                class="lg:col-span-2 p-3 lg:p-5 flex items-center space-x-2 lg:space-x-4"
                 :class="{
-                    'col-start-2':
+                    'lg:col-start-2':
                         (index + 1) % 2 !== 0 && (index + 1) % 3 === 0,
                 }"
             >
-                <span class="w-24 h-24 rounded-full bg-white flex-none"></span>
-                <p class="text font-light">
+                <span
+                    class="w-12 h-12 lg:w-24 lg:h-24 rounded-full bg-white flex-none"
+                ></span>
+                <p class="text-xs font-light">
                     {{ b.details }}
                 </p>
             </div>
@@ -102,7 +119,9 @@
     </home-wrap>
     <home-wrap class="bg-primary bg-opacity-10">
         <home-title>About us</home-title>
-        <div class="leading-7 space-y-5 mt-12">
+        <div
+            class="text-xs leading-6 lg:text-base lg:leading-7 space-y-5 mt-6 lg:mt-12"
+        >
             <p>
                 At Kirinyaga Online Stores, we make home improvement easy.
                 Whether you're a seasoned DIY enthusiast or just starting your
@@ -123,7 +142,7 @@
         </div>
 
         <img
-            class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 opacity-25 lg:opacity-50"
             src="@/assets/images/waves-2.svg"
             alt=""
         />
@@ -131,7 +150,7 @@
 
     <home-wrap>
         <home-title>For any inquiry/assistance</home-title>
-        <div class="grid grid-cols-3 mt-20">
+        <div class="grid lg:grid-cols-3 mt-20">
             <div>
                 <h4>Reach out on</h4>
                 <icons-wavy class="text-primary" />
@@ -151,11 +170,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-span-2 pl-10 border-l">
+            <div
+                class="lg:col-span-2 lg:pl-10 border-t pt-10 mt-10 lg:border-l lg:pt-0 lg:border-t-0"
+            >
                 <form @submit.prevent="submitContact">
-                    <div class="grid grid-cols-2 gap-5">
+                    <div class="grid lg:grid-cols-2 gap-5">
                         <form-input
-                            class="col-span-2"
+                            class="lg:col-span-2"
                             label="Name"
                             placeholder="e.g. John Kamau"
                             required
@@ -176,16 +197,26 @@
                         ></form-input>
                         <form-text
                             placeholder="Write your message here"
-                            class="col-span-2"
+                            class="lg:col-span-2"
                             required
                             label="Message"
                             v-model="contactForm.message"
                         ></form-text>
 
-                        <div class="col-span-2">
-                            <base-button class="btn--primary" type="submit">
-                                <span>Submit message</span>
-                                <PaperAirplaneIcon class="h-5" />
+                        <div class="lg:col-span-2">
+                            <base-button
+                                class="btn--primary"
+                                type="submit"
+                                :disabled="submittedMessage"
+                            >
+                                <template v-if="submittedMessage">
+                                    <span>Message submitted!</span>
+                                    <CheckCircleIcon class="h-5" />
+                                </template>
+                                <template v-else>
+                                    <span>Submit message</span>
+                                    <PaperAirplaneIcon class="h-5" />
+                                </template>
                             </base-button>
                         </div>
                     </div>
@@ -193,7 +224,6 @@
             </div>
         </div>
     </home-wrap>
-
     <layout-footer />
 </template>
 <script setup lang="ts">
@@ -204,8 +234,9 @@ import HomeTitle from "@/components/home/title.vue";
 import HomeTabs from "@/components/home/tabs.vue";
 import HomeWrap from "@/components/home/wrap.vue";
 import ProductCard from "@/components/client/product/card.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import {
+    CheckCircleIcon,
     EnvelopeIcon,
     PaperAirplaneIcon,
     PhoneIcon,
@@ -213,6 +244,7 @@ import {
 
 import { Product } from "@/types/products";
 import { router } from "@inertiajs/vue3";
+import { useScroll } from "@vueuse/core";
 
 const productTabs = ref([
     {
@@ -224,12 +256,15 @@ const productTabs = ref([
         label: "Popular products",
     },
 ]);
+
 defineOptions({
     layout: Blank,
 });
+
 defineProps<{
     products: Array<Product>;
     chunk: string;
+    submittedMessage?: boolean;
 }>();
 
 enum ContactIcons {
@@ -305,6 +340,7 @@ const contactForm = ref({
 });
 
 const submitContact = () => {};
+
 const getChunks = (chunk: string) => {
     router.visit(route("home"), {
         data: {
@@ -314,4 +350,8 @@ const getChunks = (chunk: string) => {
         preserveScroll: true,
     });
 };
+
+const scroll = useScroll(window);
+
+const scrollOffset = computed(() => {});
 </script>

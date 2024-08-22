@@ -1,6 +1,6 @@
 <template>
     <page-head title="Cart"></page-head>
-    <layout-container class="w-3/4 mx-auto">
+    <layout-container class="md: 4/5 lg:w-3/4 mx-auto">
         <div class="flex items-center justify-between">
             <page-title>Your cart</page-title>
             <nav-link
@@ -8,10 +8,11 @@
                 as="button"
                 method="post"
                 :href="route('cart.reset')"
-                class="btn btn--outline-primary"
-                @click=""
-                >Reset cart</nav-link
+                class="btn btn--outline-secondary hover:bg-error hover:border-error"
             >
+                <XCircleIcon class="h-6" />
+                <span>Reset cart</span>
+            </nav-link>
         </div>
         <div class="mt-10">
             <table v-if="_items.length" class="cart-table w-full">
@@ -20,20 +21,20 @@
                         <th>Item</th>
                         <th></th>
                         <th class="!text-center">Quantity</th>
-                        <th class="!text-center">Price</th>
+                        <th class="">Price</th>
                         <th>Total</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in _items" :key="item.slug">
-                        <td>
+                        <td class="order-first md:order-unset w-1/2 md:w-auto">
                             <div
-                                class="h-20 w-20 bg-grey bg-opacity-20 rounded-lg flex items-center justify-center"
+                                class="h-28 w-28 md:h-20 md:w-20 bg-grey bg-opacity-20 rounded-lg flex items-center justify-center"
                             >
                                 <img
                                     src="@/assets/images/drill-sm.png"
-                                    class="h-12 object-contain"
+                                    class="object-contain md:h-12 w-full md:w-auto"
                                     alt=""
                                 />
                             </div>
@@ -55,39 +56,17 @@
                                 {{ item.short_description }}
                             </p>
                         </td>
-                        <td>
-                            <div class="flex items-center">
-                                <button
-                                    type="button"
-                                    class="px-2 disabled:text-gray-300"
-                                    :disabled="
-                                        item.quantity <= 1 || !item.in_stock
-                                    "
-                                    @click="
-                                        updateItem(item.slug, --item.quantity)
-                                    "
-                                >
-                                    <MinusCircleIcon class="h-7 stroke-1" />
-                                </button>
-                                <input
-                                    type="number"
-                                    class="border-0 w-12 text-center bg-grey bg-opacity-10 rounded-lg p-3 appearance-none"
-                                    v-model="item.quantity"
-                                    readonly
-                                />
-                                <button
-                                    type="button"
-                                    class="px-2 disabled:text-gray-300"
-                                    :disabled="!item.in_stock"
-                                    @click="
-                                        updateItem(item.slug, ++item.quantity)
-                                    "
-                                >
-                                    <PlusCircleIcon class="h-7 stroke-1" />
-                                </button>
-                            </div>
+                        <td
+                            class="order-first self-center flex-auto md:w-auto md:border-none md:order-unset md:align-unset"
+                        >
+                            <form-quantity
+                                class="justify-center"
+                                :value="item.quantity"
+                                :disabled="!item.in_stock"
+                                @update="(value: number)=> updateItem(item.slug, value)"
+                            ></form-quantity>
                         </td>
-                        <td class="vertical-align-bottom">
+                        <td class="vertical-align-bottom w-1/2 md:w-auto">
                             <div
                                 v-if="item.discount_price"
                                 class="flex items-end"
@@ -111,7 +90,9 @@
                                 {{ item.price.toLocaleString() }}
                             </p>
                         </td>
-                        <td>
+                        <td
+                            class="w-1/2 bg-gray-100 px-3 md:w-auto md:bg-transparent md:px-0"
+                        >
                             <p class="text-xs text-grey">
                                 Ksh.
                                 {{
@@ -132,14 +113,22 @@
                                 }}
                             </p>
                         </td>
-                        <td>
-                            <base-button class="btn--sm" @click="deletetItem(item.slug)">
+                        <td
+                            class="w-full flex justify-center md:table-cell md:w-auto !pt-10"
+                        >
+                            <base-button
+                                class="btn--sm font-normal"
+                                @click="deletetItem(item.slug)"
+                            >
                                 <TrashIcon
                                     class="h-5 text-grey hover:text-error"
                                 />
+                                <span class="md:hidden">Remove item</span>
                             </base-button>
                         </td>
                     </tr>
+                </tbody>
+                <tfoot>
                     <tr class="subtotal-row">
                         <td>
                             <h4 class="text-xl font-medium text-grey">
@@ -157,43 +146,60 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="5">
+                        <td colspan="5" class="w-full md:w-auto">
                             <div class="flex justify-end">
                                 <div>
                                     <base-button class="btn--primary">
                                         <span>Complete purchase</span>
                                         <ArrowLongRightIcon class="h-5" />
                                     </base-button>
-                                    <p class="text-xs mt-1 text-end">Checkout via Whatsapp</p>
+                                    <p class="text-xs mt-1 text-end">
+                                        Checkout via Whatsapp
+                                    </p>
                                 </div>
                             </div>
                         </td>
                         <td></td>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
-            
+
             <template v-else>
-                <div class="grid grid-cols-3 items-center">
-                    <img src="@/assets/images/empty-cart.svg" class="max-w-sm" alt="">
+                <div
+                    class="grid md:grid-cols-2 items-center gap-20 px-5 sm:px-12"
+                >
+                    <img
+                        src="@/assets/images/empty-cart.svg"
+                        class="max-w-full md:max-w-sm"
+                        alt=""
+                    />
                     <div class="space-y-5">
-                        <h1 class="text-4xl font-medium">Your cart is empty.</h1>
-                        <p class="text-lg text-grey">Looks like you haven’t added anything to your cart yet. Start exploring our wide range of tools and equipment to find what you need!</p>
-                        <nav-link :href="route('products.index')" as="button" class="btn btn--lg font-medium btn--outline-secondary">
+                        <h1 class="text-3xl lg:text-4xl font-medium">
+                            Your cart is empty.
+                        </h1>
+                        <p class="text-smlg:text-lg text-grey">
+                            Looks like you haven’t added anything to your cart
+                            yet. Start exploring our wide range of tools and
+                            equipment to find what you need!
+                        </p>
+                        <nav-link
+                            :href="route('products.index')"
+                            as="button"
+                            class="btn lg:btn--lg font-normal lg:font-medium btn--outline-secondary"
+                        >
                             <span>Browse tools</span>
                             <ArrowLongRightIcon class="h-6" />
                         </nav-link>
                     </div>
-
                 </div>
             </template>
         </div>
     </layout-container>
 </template>
 <script lang="ts" setup>
-import { ArrowLongRightIcon, MinusCircleIcon, PlusCircleIcon, } from "@heroicons/vue/24/outline";
-import { TrashIcon } from "@heroicons/vue/24/solid";
-import { CartItem } from "@/types/cart"
+import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
+import { TrashIcon, XCircleIcon } from "@heroicons/vue/24/solid";
+import { CartItem } from "@/types/cart";
 import { router } from "@inertiajs/vue3";
 import { computed } from "vue";
 
@@ -222,12 +228,16 @@ const updateItem = (slug: string, quantity: number) => {
         },
         preserveScroll: true,
         preserveState: true,
+        onSuccess() {
+            // console.log('updated', quantity);
+            
+        }
     });
 };
 
 const deletetItem = (slug: string) => {
-    router.visit(route('cart.destroy', { slug }), {
-        method: 'delete'
-    })
-}
+    router.visit(route("cart.destroy", { slug }), {
+        method: "delete",
+    });
+};
 </script>

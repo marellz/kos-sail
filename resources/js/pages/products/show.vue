@@ -2,8 +2,10 @@
     <div>
         <page-head :title="pageName"></page-head>
         <layout-container>
-            <div class="mt-10 grid grid-cols-2">
-                <div>
+            <div class="grid md:grid-cols-2 gap-10">
+
+                <!-- product images -->
+                <div class="">
                     <div class="relative bg-primary bg-opacity-5">
                         <img src="@/assets/images/drill-xl.png" alt="" />
                         <div
@@ -30,10 +32,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-10 space-y-10">
+
+                <!-- product info -->
+                <div class="lg:px-10 space-y-10 row-start-1 md:row-start-auto">
                     <div class="space-y-5">
                         <div>
-                            <h1 class="text-4xl font-medium">
+                            <h1 class="text-3xl lg:text-4xl font-medium">
                                 {{ _product.name }}
                             </h1>
                             <p class="mt-4">
@@ -50,7 +54,7 @@
                                 </span>
                             </p>
                         </div>
-                        <p class="text-lg text-grey">
+                        <p class="lg:text-lg text-grey">
                             {{ _product.short_description }}
                         </p>
                     </div>
@@ -87,7 +91,7 @@
                             }"
                         />
                     </div>
-                    <div>
+                    <div class="">
                         <base-button
                             class="btn--primary"
                             :disabled="!inStock"
@@ -95,6 +99,33 @@
                         >
                             <span> Purchase </span>
                             <ShoppingBagIcon class="h-5" />
+                        </base-button>
+                    </div>
+                </div>
+
+                <!-- product description/specifications -->
+                <div class="md:col-span-2 space-y-10">
+                    <div class="flex items-center space-x-3">
+                        <base-button
+                            class="border-gray-200 text-dark py-1.5 px-3 font-normal leading-4 over"
+                        >
+                            <ShareIcon class="h-6" />
+                            <span>Share</span>
+                        </base-button>
+                        <base-button
+                            class="border-gray-200 py-1.5 px-3 font-normal leading-4"
+                            :class="{
+                                'border-primary text-primary': favorited,
+                            }"
+                            @click="favorited = !favorited"
+                        >
+                            <HeartIcon
+                                class="h-6"
+                                :class="{
+                                    'fill-current stroke-current': favorited,
+                                }"
+                            />
+                            <span>Favorite</span>
                         </base-button>
                     </div>
                     <div>
@@ -141,29 +172,6 @@
                             </div>
                         </div> -->
                     </div>
-                    <div class="flex items-center space-x-3">
-                        <base-button
-                            class="border-gray-200 text-dark py-1.5 px-3 font-normal leading-4 over"
-                        >
-                            <ShareIcon class="h-6" />
-                            <span>Share</span>
-                        </base-button>
-                        <base-button
-                            class="border-gray-200 py-1.5 px-3 font-normal leading-4"
-                            :class="{
-                                'border-primary text-primary': favorited,
-                            }"
-                            @click="favorited = !favorited"
-                        >
-                            <HeartIcon
-                                class="h-6"
-                                :class="{
-                                    'fill-current stroke-current': favorited,
-                                }"
-                            />
-                            <span>Favorite</span>
-                        </base-button>
-                    </div>
                 </div>
             </div>
         </layout-container>
@@ -181,7 +189,7 @@ import {
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 const props = defineProps<{
-    product:  Product;
+    product: Product;
 }>();
 
 const currentImage = ref(1);

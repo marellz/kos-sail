@@ -1,30 +1,51 @@
 <template>
     <header>
         <layout-container>
-            <div class="flex items-center">
-                <nav-link href="/" class="text-primary">
-                    <base-logo class="h-12 w-auto" />
-                </nav-link>
+            <div class="flex items-center justify-between">
+                <div class="flex flex-col md:flex-row items-center">
+                    <nav-link href="/" class="text-primary">
+                        <base-logo class="h-8 lg:h-12 w-auto" />
+                    </nav-link>
 
-                <div class="flex ml-12 space-x-5">
-                    <nav-link
-                        v-for="(link, index) in links"
-                        :key="index"
-                        class="text-lg"
-                        :active="link.components.includes($page.component)"
-                        :href="link.path"
-                        >{{ link.label }}</nav-link
+                    <span
+                        class="invisible bg-dark fixed inset-0 z-10 bg-opacity-20 lg:hidden transform transition-all duration-200 ease-in-out"
+                        :class="{ '!visible': showNav }"
+                        @click="showNav = false"
+                    ></span>
+                    <div
+                        ref="nav"
+                        :class="{ 'translate-y-0': showNav }"
+                        class="bg-white top-0 left-0 w-full p-10 md:p-0 shadow rounded-b-xl z-50 -translate-y-full md:translate-y-0 md:bg-transparent md:shadow-none transition-all ease-linear bottom-unset fixed md:static flex flex-col md:flex-row md:ml-6 lg:ml-12 space-y-3 md:space-y-0 md:space-x-3 lg:space-x-5"
                     >
+                        <div
+                            class="flex items-center justify-between mb-5 md:hidden"
+                        >
+                            <h1 class="font-bold uppercase text-grey">Menu</h1>
+                            <button type="button" @click="showNav = false">
+                                <icons-polygon
+                                    class="h-6 rotate-90 text-grey"
+                                />
+                            </button>
+                        </div>
+                        <nav-link
+                            v-for="(link, index) in links"
+                            :key="index"
+                            class="lg:text-lg"
+                            :active="link.components.includes($page.component)"
+                            :href="link.path"
+                            >{{ link.label }}</nav-link
+                        >
+                    </div>
                 </div>
 
-                <div class="flex items-center ml-auto space-x-4">
+                <div class="flex items-center md:space-x-3">
                     <button
                         type="button"
                         class="btn leading-normal font-normal p-2 hover:bg-primary hover:bg-opacity-15"
                         @click="searchActive = true"
                     >
                         <MagnifyingGlassIcon class="h-6" />
-                        <span>Search</span>
+                        <span class="hidden lg:inline">Search</span>
                     </button>
                     <nav-link
                         as="button"
@@ -36,20 +57,25 @@
                         }"
                     >
                         <ShoppingBagIcon class="h-6" />
-                        <span>Want to buy</span>
+                        <span class="hidden lg:inline">Want to buy</span>
                         <span
                             v-if="cartItems"
                             class="bg-primary text-xs leading-[15px] pl-px text-center h-4 w-4 rounded-full text-white absolute bottom-0 left-4 border border-transparent p-0 group-hover:border-white"
                             >{{ cartItems }}</span
                         >
                     </nav-link>
+
+                    <!-- authentication -->
+
                     <nav-link
                         v-if="!$page.props.auth.user"
                         as="button"
-                        class="btn btn--primary"
+                        class="inline-flex items-center text-xs md:text-base md:border border-gray-500 rounded-lg px-3 py-1 font-normal"
                         href="/login"
-                        >Login</nav-link
                     >
+                        <span class="hidden md:inline">Login</span>
+                        <UserCircleIcon class="h-6 md:hidden" />
+                    </nav-link>
                     <nav-link
                         v-else
                         as="button"
@@ -58,6 +84,14 @@
                         href="/logout"
                         >Logout</nav-link
                     >
+
+                    <button
+                        type="button"
+                        class="p-2 md:hidden"
+                        @click="showNav = !showNav"
+                    >
+                        <Bars3BottomRightIcon class="h-5" />
+                    </button>
                 </div>
             </div>
         </layout-container>
@@ -65,11 +99,14 @@
 </template>
 <script lang="ts" setup>
 import {
+    Bars3BottomRightIcon,
     MagnifyingGlassIcon,
     ShoppingBagIcon,
+    UserCircleIcon,
 } from "@heroicons/vue/24/outline";
 import { usePage } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { onClickOutside } from "@vueuse/core";
+import { computed, ref, watch } from "vue";
 const links = ref([
     {
         path: "/products",
@@ -82,7 +119,23 @@ const links = ref([
         components: ["categories/index"],
     },
 ]);
+
+const nav = ref();
+const showNav = ref(false);
 const searchActive = ref(false);
-const cart = computed(() => usePage().props.cart??{})
-const cartItems = computed(() => Object.keys(cart.value).length)
+const cart = computed(() => usePage().props.cart ?? {});
+const cartItems = computed(() => Object.keys(cart.value).length);
+onClickOutside(nav, () => {
+    showNav.value = false;
+});
+
+let page = usePage();
+
+watch(
+    () => page.url,
+    () => {
+        showNav.value = false;
+    },
+    { deep: true }
+);
 </script>

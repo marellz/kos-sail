@@ -72,9 +72,8 @@
     </form>
 </template>
 <script setup lang="ts">
-import { router, useForm } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import Auth from "@/layouts/auth.vue";
-import { onMounted } from "vue";
 
 defineProps<{
     canResetPassword?: boolean;
@@ -85,25 +84,9 @@ defineOptions({
     layout: Auth,
 });
 
-onMounted(() => {
-    setTimeout(() => {
-        router.visit(route('login'), {
-            method: "post",
-            data:{
-                email:"test@example.com",
-                password: "secret",
-            },
-            onFinish(){
-                router.visit(route('admin.products.index'))
-            },
-    
-        })
-    }, 1000)
-})
-
 const form = useForm({
-    email: "",
-    password: "",
+    email: "test@example.com",
+    password: "secret",
     remember: false,
 });
 

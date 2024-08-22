@@ -34,7 +34,7 @@
                 </div>
             </layout-container>
             <!-- nav -->
-            <div ref="target" class="bg-white fixed top-0 w-full p-9 transform -translate-y-full transition md:static md:bg-transparent md:p-0 md:transform-none" :class="{'!translate-y-0': navActive}"> 
+            <div ref="target" class="bg-white fixed top-0 w-full p-9 transform -translate-y-full transition md:static md:bg-transparent md:p-0 md:transform-none z-20" :class="{'!translate-y-0': navActive}"> 
                 <div class="flex justify-between text-light-grey md:hidden">
                     <button type="button" @click="toggleNav">
                         <ChevronLeftIcon class="h-6" />

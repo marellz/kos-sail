@@ -1,9 +1,22 @@
 <template>
     <page-head title="Browse products"></page-head>
     <layout-container>
-        <div class="grid grid-cols-4 gap-10">
-            <div class="col-span-3 col-start-2">
-                <page-title>Browse products</page-title>
+        <div class="grid lg:grid-cols-4 gap-10">
+            <div class="lg:col-span-3 lg:col-start-2">
+                <div class="flex justify-between">
+                    <page-title>Browse products</page-title>
+                    <button
+                        class="btn btn--outline-primary lg:hidden"
+                        :class="{
+                            'ring ring-primary ring-opacity-30 ring-offset-2':
+                                showFilters,
+                        }"
+                        @click="showFilters = !showFilters"
+                    >
+                        <span>Filters</span>
+                        <FunnelIcon class="h-5" />
+                    </button>
+                </div>
                 <div class="pt-10 flex items-center space-x-2">
                     <template v-if="Object.keys(filtered).length">
                         <div
@@ -31,10 +44,18 @@
                 </div>
             </div>
         </div>
-        <div class="mt-10 grid grid-cols-4 items-start gap-10">
+        <div
+            class="mt-10 grid lg:grid-cols-3 xl:grid-cols-4 items-start gap-10"
+            ref="filtersElement"
+        >
+            <span
+                class="invisible bg-dark fixed inset-0 z-10 bg-opacity-20 lg:hidden transform transition-all duration-200 ease-in-out"
+                :class="{ '!visible': showFilters }"
+                @click="showFilters = false"
+            ></span>
             <div
-                v-if="showFilters"
-                class="py-6 px-7 rounded-xl bg-light-grey bg-opacity-15 sticky top-10"
+                class="p-5 lg:py-6 lg:px-7 lg:rounded-xl bg-white shadow bottom-auto fixed inset-0 max-w-md mx-auto z-50 rounded-b-xl transform -translate-y-full invisible ease-in-out transition delay-200 lg:sticky lg:top-20 lg:transform-none lg:visible lg:shadow-none lg:bg-gray-300 lg:bg-opacity-25"
+                :class="{ '!visible !translate-y-0 delay-0': showFilters }"
             >
                 <ProductFilter
                     v-model="filters"
@@ -42,9 +63,13 @@
                     :errors
                     :categories
                     @submit="submitFilters"
+                    @close="showFilters = false"
                 />
             </div>
-            <div class="col-span-3 grid grid-cols-3 gap-6">
+            <!-- lg:col-span-2 xl:col-span-3 grid md:grid-cols-2 xl:grid-cols-3 gap-6 -->
+            <div
+                class="md:col-span-2 xl:col-span-3 grid sm:grid-cols-2 xl:grid-cols-3 gap-6"
+            >
                 <template v-if="products.data.length">
                     <nav-link
                         :href="route('products.show', { slug: product.slug })"
@@ -53,31 +78,13 @@
                     >
                         <ProductCard :product />
                     </nav-link>
-                    <div class="col-span-3">
+                    <div class="sm:col-span-2 xl:col-span-3">
                         <pagination :meta="products.meta" />
                     </div>
                 </template>
                 <template v-else>
-                    <div class="col-span-3">
-                        <div
-                            class="max-w-2xl gap-10 mx-auto flex items-center justify-center"
-                        >
-                            <img
-                                src="@/assets/images/no-data.svg"
-                                class="max-w-[200px]"
-                                alt=""
-                            />
-                            <div class="space-y-3">
-                                <h1 class="text-3xl font-medium">
-                                    No matches.
-                                </h1>
-                                <p class="text-grey">
-                                    Try adjusting your filters or browse through
-                                    other categories to find what you're looking
-                                    for.
-                                </p>
-                            </div>
-                        </div>
+                    <div class="sm:col-span-2 xl:col-span-3">
+                        <product-no-results />
                     </div>
                 </template>
             </div>
@@ -88,7 +95,9 @@
 import type { Product, ProductFilters } from "@/types/products";
 import ProductFilter from "@/components/client/product/filter.vue";
 import ProductCard from "@/components/client/product/card.vue";
-import { XMarkIcon } from "@heroicons/vue/24/outline";
+import ProductNoResults from "@/components/client/product/no-results.vue";
+import { FunnelIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { onClickOutside } from "@vueuse/core";
 import { Category } from "@/types/category";
 import { router } from "@inertiajs/vue3";
 import { ref } from "vue";
@@ -110,7 +119,8 @@ defineProps<{
     };
 }>();
 
-const showFilters = ref(true);
+const filtersElement = ref();
+const showFilters = ref(false);
 
 const filters = ref<ProductFilters>({});
 
@@ -139,4 +149,9 @@ const removeFilter = (filter: string) => {
     filters.value = _filters;
     submitFilters(_filters);
 };
+onClickOutside(filtersElement, () => {
+    if (showFilters.value) {
+        showFilters.value = false;
+    }
+});
 </script>
