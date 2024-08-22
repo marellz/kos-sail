@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductPhotoController as AdminProductPhotoController;
 use App\Http\Controllers\CartController;
@@ -20,6 +22,8 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 // Route::resource('cart', CartController::class);
 Route::controller(CartController::class)
     ->name('cart.')
@@ -28,7 +32,7 @@ Route::controller(CartController::class)
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::patch('/', 'update')->name('update');
-        Route::get('/reset', 'reset')->name('reset');
+        Route::post('/reset', 'reset')->name('reset');
         Route::delete('/delete/{slug}', 'destroy')->name('destroy');
     });
 
@@ -53,6 +57,16 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
         "products" => AdminProductController::class,
         "categories" => AdminCategoryController::class,
     ]);
+
+    Route::controller(AdminContactController::class)
+        ->name('contacts.')
+        ->prefix('contact')
+        ->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{id}', 'show');
+            Route::patch('/{id}', 'update');
+            Route::delete('/', 'destroy');
+        });
 
     Route::post('/product-photos/{product}', [AdminProductPhotoController::class, 'store'])->name('products.photo.store');
     Route::delete('/product-photos/{product}', [AdminProductPhotoController::class, 'destroy'])->name('products.photo.destroy');

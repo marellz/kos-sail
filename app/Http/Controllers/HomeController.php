@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductCollection;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,7 +24,7 @@ class HomeController extends Controller
             $chunk = $request->get('chunk');
         }
         
-        $products = $this->productService->getChunked($chunk);
+        $products = new ProductCollection($this->productService->getChunked($chunk));
 
         return Inertia::render('welcome', [
             'chunk' => $chunk,
