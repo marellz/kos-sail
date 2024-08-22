@@ -6,6 +6,7 @@ import FormCheckbox from "@/components/form/checkbox.vue";
 import FormGroup from "@/components/form/group.vue";
 import FormText from "@/components/form/text.vue";
 import FormSelect from "@/components/form/select.vue";
+import FormQuantity from "@/components/form/quantity.vue";
 
 import FilterSearch from "@/components/filter/search.vue";
 import FilterToggle from "@/components/filter/toggle.vue";
@@ -38,6 +39,7 @@ export const components = {
     "form-group": FormGroup,
     "form-text": FormText,
     "form-select": FormSelect,
+    "form-quantity": FormQuantity,
 
     "filter-search": FilterSearch,
     "filter-toggle": FilterToggle,
