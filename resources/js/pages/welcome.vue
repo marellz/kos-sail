@@ -34,6 +34,7 @@
                                 <span>Browse tools</span>
                             </nav-link>
                             <nav-link
+                                :href="route('categories.index')"
                                 class="inline-flex font-medium text-primary items-center"
                             >
                                 <span>Expore categories</span>
@@ -173,54 +174,7 @@
             <div
                 class="lg:col-span-2 lg:pl-10 border-t pt-10 mt-10 lg:border-l lg:pt-0 lg:border-t-0"
             >
-                <form @submit.prevent="submitContact">
-                    <div class="grid lg:grid-cols-2 gap-5">
-                        <form-input
-                            class="lg:col-span-2"
-                            label="Name"
-                            placeholder="e.g. John Kamau"
-                            required
-                            v-model="contactForm.name"
-                        ></form-input>
-                        <form-input
-                            type="email"
-                            placeholder="e.g. john.kamau@example.com"
-                            label="Email"
-                            required
-                            v-model="contactForm.email"
-                        ></form-input>
-                        <form-input
-                            label="Phone"
-                            placeholder="e.g. +254 7xx xxxxxx"
-                            required
-                            v-model="contactForm.phone"
-                        ></form-input>
-                        <form-text
-                            placeholder="Write your message here"
-                            class="lg:col-span-2"
-                            required
-                            label="Message"
-                            v-model="contactForm.message"
-                        ></form-text>
-
-                        <div class="lg:col-span-2">
-                            <base-button
-                                class="btn--primary"
-                                type="submit"
-                                :disabled="submittedMessage"
-                            >
-                                <template v-if="submittedMessage">
-                                    <span>Message submitted!</span>
-                                    <CheckCircleIcon class="h-5" />
-                                </template>
-                                <template v-else>
-                                    <span>Submit message</span>
-                                    <PaperAirplaneIcon class="h-5" />
-                                </template>
-                            </base-button>
-                        </div>
-                    </div>
-                </form>
+                <ContactForm :errors :submitted="submittedMessage" />
             </div>
         </div>
     </home-wrap>
@@ -236,11 +190,11 @@ import HomeWrap from "@/components/home/wrap.vue";
 import ProductCard from "@/components/client/product/card.vue";
 import { ref, computed } from "vue";
 import {
-    CheckCircleIcon,
     EnvelopeIcon,
-    PaperAirplaneIcon,
     PhoneIcon,
 } from "@heroicons/vue/24/outline";
+
+import ContactForm from '@/components/client/contact/form.vue'
 
 import { Product } from "@/types/products";
 import { router } from "@inertiajs/vue3";
@@ -265,6 +219,9 @@ defineProps<{
     products: Array<Product>;
     chunk: string;
     submittedMessage?: boolean;
+    errors: {
+        [key: string]: string,
+    }
 }>();
 
 enum ContactIcons {
@@ -331,15 +288,6 @@ const dList = [
 const contactIcon = (typ: ContactIcons) => {
     return contactIcons[typ];
 };
-
-const contactForm = ref({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-});
-
-const submitContact = () => {};
 
 const getChunks = (chunk: string) => {
     router.visit(route("home"), {
