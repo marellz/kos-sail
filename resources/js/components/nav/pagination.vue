@@ -14,18 +14,10 @@
 </template>
 <script lang="ts" setup>
 import PaginationButton from "@/components/nav/pagination-button.vue";
+import { PaginationMeta, type PaginationLink as Link } from "@/types/index"
 
-interface Link {
-    label: string;
-    url?: string;
-    active: boolean;
-}
 
 defineProps<{
-    meta: {
-        links: Array<Link>;
-        last_page: number;
-        current_page: number;
-    };
+    meta: PaginationMeta;
 }>();
 </script>

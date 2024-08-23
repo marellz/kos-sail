@@ -29,6 +29,7 @@ class HomeController extends Controller
         return Inertia::render('welcome', [
             'chunk' => $chunk,
             'products' => $products,
+            'submittedMessage' => $request->session()->get('contact_message_sent', false)
         ]);
     }
 

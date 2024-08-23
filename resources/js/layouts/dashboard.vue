@@ -70,6 +70,7 @@ import { UserCircleIcon, ChevronDownIcon } from "@heroicons/vue/24/solid";
 import {
 Bars2Icon,
     ChevronLeftIcon,
+    EnvelopeIcon,
     HomeIcon,
     QueueListIcon,
     Squares2X2Icon,
@@ -106,6 +107,12 @@ const links = ref([
         label: "Categories",
         icon: QueueListIcon,
         components: ["dashboard/categories/index"],
+    },
+    {
+        path: "/dashboard/contact", // todo: use route('name')
+        label: "Contact",
+        icon: EnvelopeIcon,
+        components: ["dashboard/contact/index"],
     },
 ]);
 

@@ -15,3 +15,28 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     ziggy: Config & { location: string };
     cart?: Array<CartItem>
 };
+
+export interface PaginationLink {
+    label: string;
+    url?: string;
+    active: boolean;
+}
+
+export interface PaginationMeta {
+    links: Array<PaginationLink>;
+    last_page: number;
+    current_page: number;
+}
+
+export interface Contact {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    subject: string;
+    message: string;
+    reply_to?: number;
+    read: boolean;
+    resolved: boolean;
+    active?: boolean;
+}

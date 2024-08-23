@@ -24,7 +24,6 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// Route::resource('cart', CartController::class);
 Route::controller(CartController::class)
     ->name('cart.')
     ->prefix('cart')
@@ -62,10 +61,10 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
         ->name('contacts.')
         ->prefix('contact')
         ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/{id}', 'show');
-            Route::patch('/{id}', 'update');
-            Route::delete('/', 'destroy');
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+            Route::patch('/{id}', 'update')->name('update');
+            Route::delete('/', 'destroy')->name('destroy');
         });
 
     Route::post('/product-photos/{product}', [AdminProductPhotoController::class, 'store'])->name('products.photo.store');
