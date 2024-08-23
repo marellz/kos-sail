@@ -17,6 +17,7 @@ import BaseDropdown from "@/components/base/dropdown.vue";
 import BaseDropdownLink from "@/components/base/dropdown-link.vue";
 import BaseLogo from "@/components/base/logo.vue";
 import BaseModal from "@/components/base/modal.vue";
+import StatusTag from "@/components/base/status-tag.vue";
 
 import IconsPolygon from "@/components/icons/polygon.vue";
 import IconsWavy from "@/components/icons/wavy.vue";
@@ -50,6 +51,7 @@ export const components = {
     "dropdown-link": BaseDropdownLink,
     "base-modal": BaseModal,
     "base-logo": BaseLogo,
+    "status-tag": StatusTag,
 
     "icons-polygon": IconsPolygon,
     "icons-wavy": IconsWavy,
