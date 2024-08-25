@@ -165,9 +165,7 @@ import { ref } from "vue";
 import { CheckCircleIcon, ExclamationCircleIcon, PencilSquareIcon } from "@heroicons/vue/24/outline";
 import PictureModal from "@/components/base/picture-modal.vue";
 const props = defineProps<{
-    product: {
-        data: Product;
-    };
+    product:  Product;
 }>();
 
 defineOptions({
@@ -175,7 +173,7 @@ defineOptions({
 });
 
 const activeImageIndex = ref<null | number>(null);
-const item = computed(() => props.product.data);
-const specifications = item.value?.specifications;
+const item = computed(() => props.product);
+const specifications = computed(() => item.value.specifications ? JSON.parse(item.value?.specifications): []);
 const images = item.value?.images;
 </script>
