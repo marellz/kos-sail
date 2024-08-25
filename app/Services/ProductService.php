@@ -30,6 +30,11 @@ class ProductService
         return new ProductCollection($collection);
     }
 
+    public function getMostViewed (int $limit = 5)
+    {
+        return Product::withTotalVisitCount()->limit($limit)->get();
+    }
+
     public function getChunked(string $chunkBy)
     {
         $number = 4;

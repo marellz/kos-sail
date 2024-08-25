@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductPhotoController as AdminProductPhotoController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -46,11 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('dashboard/index');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function () {
+    
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resources([
         "products" => AdminProductController::class,
