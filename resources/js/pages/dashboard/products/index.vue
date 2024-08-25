@@ -5,12 +5,19 @@
             class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between"
         >
             <page-title>Products</page-title>
-            <admin-add-button
-                class="ml-auto mt-3 sm:mt-0"
-                :href="route('admin.products.create')"
-            >
-                <span>Add product</span>
-            </admin-add-button>
+            <div class="flex items-center ml-auto space-x-2 mt-3 sm:mt-0">
+                <admin-add-button :href="route('admin.products.create')">
+                    <span>Add product</span>
+                </admin-add-button>
+                <a
+                    class="btn btn--outline-secondary"
+                    target="_blank"
+                    :href="route('admin.products.export')"
+                >
+                    <ArrowDownTrayIcon class="h-5" />
+                    <span>Export products</span>
+                </a>
+            </div>
         </div>
         <div class="mt-6 flex flex-wrap items-center">
             <filter-search class="w-full mb-2 md:w-auto md:mr-5 md:mb-0" />
@@ -59,6 +66,7 @@ import ProductsTable from "@/components/admin/products/table.vue";
 import ProductCard from "@/components/admin/products/card.vue";
 import { router } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
+import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
 
 defineOptions({
     layout: Dashboard,
@@ -80,7 +88,7 @@ const props = defineProps<{
     showProduct?: boolean;
 }>();
 
-const currentPage = computed(() => props.products.meta.current_page)
+const currentPage = computed(() => props.products.meta.current_page);
 
 const viewModel = ref<"table" | "cards">("table");
 
@@ -89,7 +97,11 @@ const showProduct = (slug: string) => {
 };
 
 const editProduct = (slug: string) => {
-    router.visit(`${route("admin.products.edit", { id: slug })}?page=${currentPage.value}`);
+    router.visit(
+        `${route("admin.products.edit", { id: slug })}?page=${
+            currentPage.value
+        }`
+    );
 };
 
 const deleteProduct = (slug: string) => {
@@ -98,12 +110,17 @@ const deleteProduct = (slug: string) => {
             "Are you sure you want to delete this product? This will delete all images also. This action is irreversible."
         )
     ) {
-        router.visit(`${route("admin.products.destroy", { id: slug })}?page=${currentPage.value}`, {
-            method: 'delete',
-            onFinish () {
-                console.log('Product deleted!')
+        router.visit(
+            `${route("admin.products.destroy", { id: slug })}?page=${
+                currentPage.value
+            }`,
+            {
+                method: "delete",
+                onFinish() {
+                    console.log("Product deleted!");
+                },
             }
-        });
+        );
     }
 };
 </script>

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Resources\ProductFormResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductBrand;
 use App\Models\ProductSpecification;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -87,6 +87,12 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function export ()
+    {
+        $url = Excel::download(new ProductsExport, 'products.xlsx');
+        return $url;
     }
 
 }
