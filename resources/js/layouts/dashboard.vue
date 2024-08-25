@@ -1,85 +1,86 @@
 <template>
     <div class="text-dark min-h-screen flex">
-       
-            <!-- nav -->
-            <div
-                ref="target"
-                class="w-full sm:w-64 bg-gray-50 border-r flex-none fixed h-full top-0 -translate-x-full z-50 p-10 md:p-8 md:relative md:translate-x-0 md:h-auto transition"
-                :class="{ '!translate-x-0': navActive }"
-            >
-                <div class="flex justify-between text-light-grey">
-                    <button type="button" @click="toggleNav" class="md:hidden">
-                        <ChevronLeftIcon class="h-6" />
-                    </button>
-                    <h1 class="uppercase font-semibold text-2xl">Menu</h1>
-                </div>
-                <div class="mt-10">
-                    <nav class="flex flex-col">
-                        <nav-link
-                            v-for="(link, index) in links"
-                            :key="index"
-                            :href="link.path"
-                            :active="link.components.includes($page.component)"
-                            class="inline-flex items-center space-x-2 p-2"
+        <!-- nav -->
+        <div
+            ref="target"
+            class="w-full sm:w-64 bg-gray-50 border-r flex-none fixed h-full top-0 -translate-x-full z-50 p-10 md:p-8 md:relative md:translate-x-0 md:h-auto transition"
+            :class="{ '!translate-x-0': navActive }"
+        >
+            <div class="flex justify-between text-light-grey">
+                <button type="button" @click="toggleNav" class="md:hidden">
+                    <ChevronLeftIcon class="h-6" />
+                </button>
+                <h1 class="uppercase font-semibold text-2xl">Menu</h1>
+            </div>
+            <div class="mt-10">
+                <nav class="flex flex-col">
+                    <nav-link
+                        v-for="(link, index) in links"
+                        :key="index"
+                        :href="link.path"
+                        :active="link.components.includes($page.component)"
+                        class="inline-flex items-center space-x-2 p-2"
+                    >
+                        <component :is="link.icon" class="h-5" />
+                        <span>{{ link.label }}</span>
+                    </nav-link>
+                </nav>
+            </div>
+        </div>
+        <div class="flex-auto h-screen overflow-auto">
+            <header class="py-6 sticky top-0 bg-white z-40 border-b">
+                <layout-container class="flex">
+                    <div class="flex items-center space-x-2 flex-auto">
+                        <button
+                            type="button"
+                            class="p-3 md:hidden"
+                            @click="toggleNav"
                         >
-                            <component :is="link.icon" class="h-5" />
-                            <span>{{ link.label }}</span>
+                            <Bars2Icon class="h-5" />
+                        </button>
+                        <nav-link href="/dashboard">
+                            <img
+                                src="@/assets/images/logo-md.svg"
+                                class="h-8"
+                                alt=""
+                            />
                         </nav-link>
-                    </nav>
-                </div>
-            </div>
-            <div class="flex-auto h-screen overflow-auto">
-                <layout-container class="!px-0">
-                    <header class="py-6 flex sticky top-0 bg-white z-40 border-b">
-                        <div class="flex items-center space-x-2 flex-auto">
-                            <button
-                                type="button"
-                                class="p-3 md:hidden"
-                                @click="toggleNav"
-                            >
-                                <Bars2Icon class="h-5" />
-                            </button>
-                            <nav-link href="/dashboard">
-                                <img
-                                    src="@/assets/images/logo-md.svg"
-                                    class="h-8"
-                                    alt=""
-                                />
-                            </nav-link>
-                        </div>
-                        <div class="flex items-center">
-                            <!-- dark toggle -->
-    
-                            <!-- user dropdown -->
-                            <dropdown>
-                                <template #trigger>
-                                    <UserCircleIcon class="h-10 text-gray-300" />
-                                    <div
-                                        class="ml-2 hidden md:inline text-left leading-4 pt-1"
-                                    >
-                                        <p class="font-medium">
-                                            {{ user.name }}
-                                        </p>
-                                        <p class="text-xs text-grey">Admin</p>
-                                    </div>
-                                    <span class="bg-light-grey rounded-full p-1">
-                                        <ChevronDownIcon class="h-5" />
-                                    </span>
-                                </template>
-                                <dropdown-link
-                                    href="/logout"
-                                    method="post"
-                                    as="button"
-                                    >Logout</dropdown-link
+                    </div>
+                    <div class="flex items-center">
+                        <!-- dark toggle -->
+
+                        <!-- user dropdown -->
+                        <dropdown>
+                            <template #trigger>
+                                <UserCircleIcon class="h-10 text-gray-300" />
+                                <div
+                                    class="ml-2 hidden md:inline text-left leading-4 pt-1"
                                 >
-                            </dropdown>
-                        </div>
-                    </header>
-                    <main class="py-8">
-                        <slot />
-                    </main>
+                                    <p class="font-medium">
+                                        {{ user.name }}
+                                    </p>
+                                    <p class="text-xs text-grey">Admin</p>
+                                </div>
+                                <span class="bg-light-grey rounded-full p-1">
+                                    <ChevronDownIcon class="h-5" />
+                                </span>
+                            </template>
+                            <dropdown-link
+                                href="/logout"
+                                method="post"
+                                as="button"
+                                >Logout</dropdown-link
+                            >
+                        </dropdown>
+                    </div>
                 </layout-container>
-            </div>
+            </header>
+            <main class="py-8">
+                <layout-container>
+                    <slot />
+                </layout-container>
+            </main>
+        </div>
     </div>
 </template>
 <script lang="ts" setup>
