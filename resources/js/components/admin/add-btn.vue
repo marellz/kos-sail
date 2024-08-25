@@ -1,9 +1,9 @@
 <template>
-    <nav-link as="button" class="btn btn--outline-primary text-base">
+    <nav-link as="button" class="btn btn--outline-primary">
         <span>
             <slot />
         </span>
-        <SquaresPlusIcon class="h-4" />
+        <SquaresPlusIcon class="h-5" />
     </nav-link>
 </template>
 <script lang="ts" setup>

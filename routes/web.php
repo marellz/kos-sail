@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function () {
     
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
 
     Route::resources([
         "products" => AdminProductController::class,
@@ -58,17 +58,20 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
     ]);
 
     Route::controller(AdminContactController::class)
-        ->name('contacts.')
-        ->prefix('contact')
-        ->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/{id}', 'show')->name('show');
-            Route::patch('/{id}', 'update')->name('update');
-            Route::delete('/', 'destroy')->name('destroy');
-        });
+    ->name('contacts.')
+    ->prefix('contact')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+        Route::patch('/{id}', 'update')->name('update');
+        Route::delete('/', 'destroy')->name('destroy');
+    });
+    
+    Route::get('/export/products', [AdminProductController::class, 'export'])->name('products.export');
 
     Route::post('/product-photos/{product}', [AdminProductPhotoController::class, 'store'])->name('products.photo.store');
     Route::delete('/product-photos/{product}', [AdminProductPhotoController::class, 'destroy'])->name('products.photo.destroy');
+
 });
 
 
