@@ -17,6 +17,7 @@ class Contact extends Model
         'phone',
         'message',
         'reply_to',
+        'resolved',
         'read',
     ];
 
