@@ -13,16 +13,16 @@
                 <h1 class="uppercase font-semibold text-2xl">Menu</h1>
             </div>
             <div class="mt-10">
-                <nav class="flex flex-col">
+                <nav class="flex flex-col space-y-2">
                     <nav-link
                         v-for="(link, index) in links"
                         :key="index"
                         :href="link.path"
-                        :active="link.components.includes($page.component)"
-                        class="inline-flex items-center space-x-2 p-2"
+                        class="inline-flex items-center space-x-2 py-2 px-6 text-sm rounded-full hover:bg-white hover:shadow transition-all"
+                        :class="{'text-white bg-dark hover:!bg-dark' : isActive(link.components)}"
                     >
-                        <component :is="link.icon" class="h-5" />
-                        <span>{{ link.label }}</span>
+                        <component :is="link.icon" class="h-5 stroke-1" :class="{'stroke-2': isActive(link.components) }" />
+                        <span class="mt-0.5">{{ link.label }}</span>
                     </nav-link>
                 </nav>
             </div>
@@ -143,4 +143,10 @@ const target = ref(null);
 onClickOutside(target, () => {
     navActive.value = false;
 });
+
+const $page = usePage()
+
+const isActive = (components: Array<string>) => {
+    return components.includes($page.component)
+}
 </script>
