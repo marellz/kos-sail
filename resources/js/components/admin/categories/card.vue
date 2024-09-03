@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white pt-5 rounded-lg flex flex-col overflow-hidden">
+    <div class="pt-5 rounded-lg flex flex-col overflow-hidden border">
         <div class="flex-auto px-6">
             <h1 class="text-xl font-semibold">
                 {{ category.name }}

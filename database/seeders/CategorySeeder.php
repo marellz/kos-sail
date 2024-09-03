@@ -67,9 +67,17 @@ class CategorySeeder extends Seeder
         foreach ($categories as $name => $content) {
             $this->runFactory($name, $content, null);
         }
+
+        foreach(range(1,20) as $round){
+            $id = Category::inRandomOrder()->first()->id;
+            Category::factory()->create([
+                'name' => 'Random category '.fake()->numberBetween(100, 999),
+                'parent_id' => $id
+            ]);
+        }
     }
 
-    public function runFactory (string $name, array $category, int | null $parent)
+    public function runFactory(string $name, array $category = [], int | null $parent)
     {
         $added = Category::factory()->create([
             'name' => $name,
@@ -78,8 +86,8 @@ class CategorySeeder extends Seeder
             'parent_id' => $parent
         ]);
 
-        if(isset($category['children'])){
-            foreach ($category['children'] as $child_name => $child_content) {
+        if (isset($category["children"])) {
+            foreach ($category["children"] as $child_name => $child_content) {
                 $this->runFactory($child_name, $child_content, $added->id);
             }
         }

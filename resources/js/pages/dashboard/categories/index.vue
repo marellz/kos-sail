@@ -13,7 +13,14 @@
             >
         </div>
 
+        <div class="mt-10">
+            <form-checkbox v-model="showList">
+                <p>Show as list</p>
+            </form-checkbox>
+        </div>
+
         <div
+            v-if="showList"
             class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-start mt-12"
         >
             <admin-category-card
@@ -23,6 +30,10 @@
                 :key="item.id"
                 @show-item="openItem"
             />
+        </div>
+
+        <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-10" v-else>
+            <admin-category-tree :items="items"/>
         </div>
 
         <base-modal
@@ -128,6 +139,7 @@
 <script lang="ts" setup>
 import Dashboard from "@/layouts/dashboard.vue";
 import AdminCategoryCard from "@/components/admin/categories/card.vue";
+import AdminCategoryTree from "@/components/admin/categories/tree.vue";
 import AdminAddButton from "@/components/admin/add-btn.vue";
 import { type Category, type CategoryForm } from "@/types/category";
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
@@ -145,9 +157,7 @@ const props = withDefaults(
             description?: string;
             parent_id?: string;
         };
-        categories: {
-            data: Array<Category>;
-        };
+        categories: Array<Category>;
     }>(),
     {
         showForm: false,
@@ -172,7 +182,9 @@ defineOptions({
     layout: Dashboard,
 });
 
-const items = computed(() => props.categories.data);
+const showList = ref(false);
+
+const items = computed(() => props.categories);
 
 const editMode = computed(() => {
     return !!props.category?.id;

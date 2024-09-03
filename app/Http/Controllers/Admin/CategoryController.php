@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Services\CategoryService;
@@ -21,7 +22,7 @@ class CategoryController extends Controller
     public function index()
     {
         return inertia('dashboard/categories/index', [
-            'categories' => $this->service->all(),
+            'categories' => new CategoryCollection($this->service->parents()),
         ]);
     }
 

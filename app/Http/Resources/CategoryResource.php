@@ -19,7 +19,8 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->description,
-            'is_parent' => $this->parent_id !== null,
+            'is_parent' => $this->parent_id === null,
+            'parent_id' => $this->parent_id,
             'subcategories' => CategoryResource::collection($this->children)
         ];
 
