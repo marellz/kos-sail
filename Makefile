@@ -18,3 +18,6 @@ route-cache:
 
 route-list:
 	./vendor/bin/sail artisan route:list
+
+tinker:
+	./vendor/bin/sail artisan tinker
