@@ -17,7 +17,7 @@
                 <template v-if="items.length">
                     <tr v-for="item in items" :class="{'row--active': currentProduct === item.id}">
                         <td width="50px">
-                            <a href="#" @click.prvent="showProduct(item.slug)">
+                            <a href="#" @click.prevent="showProduct(item.slug)">
                                 <img src="@/assets/images/drill-sm.png" class="max-w-[45px]" alt="">
                             </a>
                         </td>
