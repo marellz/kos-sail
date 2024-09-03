@@ -117,7 +117,7 @@
                                 :key="index"
                                 class="group bg-light-alt-2 rounded p-3 relative overflow-auto"
                             >
-                                <img class="h-28" :src="`/${image}`" alt="" />
+                                <img class="h-28 w-28 object-cover object-center" :src="image" alt="" />
                                 <div
                                     class="invisible group-hover:visible transition border-t absolute inset-0"
                                 >
@@ -229,7 +229,7 @@
                     </div>
                 </div>
             </div>
-            <div class="sticky bottom-0">
+            <div class="sticky bottom-0 p-4 bg-white">
                 <div class="flex space-x-4 !mt-10">
                     <base-button
                         type="button"

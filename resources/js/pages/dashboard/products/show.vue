@@ -174,6 +174,6 @@ defineOptions({
 
 const activeImageIndex = ref<null | number>(null);
 const item = computed(() => props.product);
-const specifications = computed(() => item.value.specifications ? JSON.parse(item.value?.specifications): []);
+const specifications = computed(() => item.value.specifications);
 const images = item.value?.images;
 </script>

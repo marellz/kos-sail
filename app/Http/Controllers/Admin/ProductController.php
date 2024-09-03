@@ -61,7 +61,7 @@ class ProductController extends Controller
 
         // dd($product->specifications);
         return inertia('dashboard/products/form', [
-            'product' => $product,
+            'product' => new ProductResource($product),
             'isEdit' => true,
             'categories' => Category::all(),
             'brands' => ProductBrand::all(),
