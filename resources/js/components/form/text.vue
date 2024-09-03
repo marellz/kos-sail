@@ -16,7 +16,7 @@
                :placeholder
                :rows
                ref="input"
-           />
+           ></textarea>
        </div>
        <form-error class="mt-1" v-if="error">{{ error }}</form-error>
     </div>
