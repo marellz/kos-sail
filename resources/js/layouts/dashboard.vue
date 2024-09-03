@@ -76,9 +76,7 @@
                 </layout-container>
             </header>
             <main class="py-8">
-                <layout-container>
                     <slot />
-                </layout-container>
             </main>
         </div>
     </div>
@@ -134,7 +132,7 @@ const links = ref([
         path: "/dashboard/contact", // todo: use route('name')
         label: "Contact",
         icon: EnvelopeIcon,
-        components: ["dashboard/contact/index"],
+        components: ["dashboard/contact/index", "dashboard/contact/show"],
     },
 ]);
 

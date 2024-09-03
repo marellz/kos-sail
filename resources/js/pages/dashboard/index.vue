@@ -1,51 +1,54 @@
 <template>
     <page-head title="Dashboard" />
-
-    <div class="mt-10 space-y-10">
-        <div class="flex gap-5 flex-wrap">
-            <div
-                class="border rounded-xl p-3"
-                v-for="(item, key) in stats"
-                :key="key"
-            >
-                <div class="text-gray-800">
-                    <h4 class="text-lg">
-                        {{ labels[key as keyof Stats].title }}
-                    </h4>
-                    <p class="text-xs text-gray-500">
-                        {{ labels[key as keyof Stats].description }}
+    <layout-container>
+        <div class="mt-10 space-y-10">
+            <div class="flex gap-5 flex-wrap">
+                <div
+                    class="border rounded-xl p-3"
+                    v-for="(item, key) in stats"
+                    :key="key"
+                >
+                    <div class="text-gray-800">
+                        <h4 class="text-lg">
+                            {{ labels[key as keyof Stats].title }}
+                        </h4>
+                        <p class="text-xs text-gray-500">
+                            {{ labels[key as keyof Stats].description }}
+                        </p>
+                    </div>
+                    <p class="text-4xl font-light mt-4 text-end">
+                        {{ item }}
                     </p>
                 </div>
-                <p class="text-4xl font-light mt-4 text-end">
-                    {{ item }}
-                </p>
             </div>
-        </div>
 
-        <div>
-            <div class="flex justify-between">
-                <h1 class="text-lg font-medium">Most popular products</h1>
-                <nav-link
-                    :href="route('admin.products.index')"
-                    class="btn-icon text-primary"
+            <div>
+                <div class="flex justify-between">
+                    <h1 class="text-lg font-medium">Most popular products</h1>
+                    <nav-link
+                        :href="route('admin.products.index')"
+                        class="btn-icon text-primary"
+                    >
+                        <span>View all</span>
+                        <ArrowLongRightIcon class="h-5" />
+                    </nav-link>
+                </div>
+                <div
+                    class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"
                 >
-                    <span>View all</span>
-                    <ArrowLongRightIcon class="h-5" />
-                </nav-link>
-            </div>
-            <div
-                class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"
-            >
-                <nav-link
-                    v-for="item in products"
-                    :key="item.id"
-                    :href="route('admin.products.show', { product: item.slug })"
-                >
-                    <product-tag :item />
-                </nav-link>
+                    <nav-link
+                        v-for="item in products"
+                        :key="item.id"
+                        :href="
+                            route('admin.products.show', { product: item.slug })
+                        "
+                    >
+                        <product-tag :item />
+                    </nav-link>
+                </div>
             </div>
         </div>
-    </div>
+    </layout-container>
 </template>
 
 <script setup lang="ts">
@@ -53,6 +56,7 @@ import Dashboard from "@/layouts/dashboard.vue";
 import { Product } from "@/types/products";
 import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
 import ProductTag from "@/components/admin/products/tag.vue";
+import { router } from "@inertiajs/vue3";
 
 interface Stats {
     products: number;
