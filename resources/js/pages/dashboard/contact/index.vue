@@ -1,5 +1,5 @@
 <template>
-    <page-head title="Admin | Categories"></page-head>
+    <page-head title="Admin | Contact messages"></page-head>
     <layout-container>
         <page-title>Contact messages</page-title>
         <div class="mt-10 flex space-x-2">
@@ -16,7 +16,19 @@
             </form>
         </div>
         <div class="mt-10">
-            <contacts-table :items @open-row="openRow" :activeRow></contacts-table>
+            <p class="text-gray-500 mb-5">
+                Showing {{ contacts.meta.from }} to
+                {{ contacts.meta.to }} contact messages
+            </p>
+            <contacts-table
+                v-model:selected="selected"
+                :items
+                @open-row="openRow"
+                @mark-many-as-read="updateMany('read')"
+                @mark-many-as-resolved="updateMany('resolved')"
+                @mark-as-read="markAsRead"
+                @mark-as-resolved="markAsResolved"
+            ></contacts-table>
         </div>
 
         <pagination :meta="contacts.meta"></pagination>
@@ -25,11 +37,9 @@
 <script lang="ts" setup>
 import Dashboard from "@/layouts/dashboard.vue";
 import { type PaginationLink } from "@/types/index";
-
 import ContactsTable from "@/components/admin/contact/table.vue";
 import { router } from "@inertiajs/vue3";
-import { ref } from "vue";
-import { computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { type Contact } from "@/types/index";
 defineOptions({
     layout: Dashboard,
@@ -41,12 +51,15 @@ const props = defineProps<{
             links: Array<PaginationLink>;
             last_page: number;
             current_page: number;
+            from: number;
+            to: number;
         };
         data: Array<Contact>;
     };
-    activeRow: string | null;
     query: string | null;
 }>();
+
+const activeContact = ref<Contact | null>(null);
 
 const items = computed(() => props.contacts.data);
 
@@ -63,13 +76,53 @@ const search = () => {
 };
 
 const openRow = (id: number) => {
-    router.visit(route("admin.contacts.index", { show_id: id }), {
+    router.visit(route("admin.contacts.show", { id }), {
         preserveState: true,
         preserveScroll: true,
     });
 };
 
+const update = (
+    id: number,
+    data: { read?: boolean; resolved?: boolean },
+    message: string
+) => {
+    router.visit(route("admin.contacts.update", { id }), {
+        method: "patch",
+        data: { ...data },
+        onSuccess: () => {
+            // throw toast with message
+            console.log(message);
+        },
+    });
+};
+
+const markAsResolved = (id: number) => {
+    update(id, { resolved: true }, "Marked as resolved!");
+};
+
+const markAsRead = (id: number) => {
+    update(id, { read: true }, "Marked as read!");
+};
+
 const resetList = () => {
     router.visit(route("admin.contacts.index"));
+};
+
+const selected = ref([]);
+
+const updateMany = (action: "resolved" | "read") => {
+    router.visit(route("admin.contacts-update-many"), {
+        method: "post",
+        data: {
+            contacts: selected.value,
+            action,
+        },
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+            // throw toast
+        },
+    });
 };
 </script>

@@ -39,4 +39,5 @@ export interface Contact {
     read: boolean;
     resolved: boolean;
     active?: boolean;
+    sent_at?: string;
 }

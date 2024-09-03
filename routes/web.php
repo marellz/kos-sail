@@ -62,10 +62,13 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
     ->prefix('contact')
     ->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/{id}', 'show')->name('show');
-        Route::patch('/{id}', 'update')->name('update');
-        Route::delete('/', 'destroy')->name('destroy');
+        Route::get('/{contact}', 'show')->name('show');
+        Route::patch('/{contact}', 'update')->name('update');
+        Route::delete('/{contact}', 'destroy')->name('destroy');
     });
+
+    # mass update
+    Route::post('/update-contacts', [AdminContactController::class, 'updateMany'])->name('contacts-update-many');
     
     Route::get('/export/products', [AdminProductController::class, 'export'])->name('products.export');
 

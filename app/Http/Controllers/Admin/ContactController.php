@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateContactRequest;
+use App\Http\Requests\UpdateManyContactRequest;
 use App\Http\Resources\ContactCollection;
+use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Services\ContactService;
 use Illuminate\Http\Request;
@@ -47,8 +49,11 @@ class ContactController extends Controller
     public function show(Contact $contact)
     {
         //
-        $contact->update(['read' => true]);
-        return redirect()->route('admin.contacts.index');
+        $contact->update(['read'=> true]);
+
+        return Inertia::render('dashboard/contact/show', [
+            'contact' => new ContactResource($contact),
+        ]);
     }
     /**
      * Update the specified resource in storage.
@@ -57,8 +62,19 @@ class ContactController extends Controller
     {
         //
         $this->service->update($contact, $request);
+        return redirect()->back();
     }
 
+    /**
+     * Update several resources.
+     */
+    public function updateMany(UpdateManyContactRequest $request)
+    {
+        //
+        $this->service->updateMany($request);
+        return redirect()->back();
+    }
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -66,5 +82,6 @@ class ContactController extends Controller
     {
         //
         $this->service->destroy($contact);
+        return redirect()->route('admin.contacts.index');
     }
 }
