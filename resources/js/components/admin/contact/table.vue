@@ -6,7 +6,9 @@
                     {{ selected.length }} contacts selected
                 </th>
                 <th colspan="" class="pb-4"></th>
-                <th class="font-normal flex justify-end space-x-3 pb-2 border-b mb-4 lg:pb-4 lg:mb-0 lg:border-b-0">
+                <th
+                    class="font-normal flex justify-end space-x-3 pb-2 border-b mb-4 lg:pb-4 lg:mb-0 lg:border-b-0"
+                >
                     <button
                         type="button"
                         class="btn btn--sm"
@@ -19,6 +21,7 @@
                     <button
                         type="button"
                         class="btn btn--sm"
+                        :disabled="!canResolveMany"
                         @click="$emit('mark-many-as-resolved', selected)"
                     >
                         <CheckBadgeIcon class="h-5" />
@@ -77,7 +80,9 @@
                     </p>
                 </td>
                 <td class="border-b pb-4 lg:pb-0 lg:border-b-0">
-                    <div class="px-2 text-center flex items-center h-full lg:h-auto">
+                    <div
+                        class="px-2 text-center flex items-center h-full lg:h-auto"
+                    >
                         <status-tag
                             v-if="row.resolved"
                             class="bg-green-100 text-green-500"
@@ -116,6 +121,7 @@
                         </button>
                         <button
                             type="button"
+                            :disabled="!row.read"
                             class="btn btn--sm items-center font-normal hover:text-warning"
                             @click.capture="
                                 markAsResolved(row.id, !row.resolved)
@@ -140,7 +146,7 @@ import {
 
 import { UserCircleIcon } from "@heroicons/vue/24/solid";
 import { type Contact } from "@/types/index";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const props = defineProps<{
     items: Array<Contact>;
@@ -195,4 +201,10 @@ const selectAll = (isSelected: boolean) => {
         ? props.items.map((item: Contact) => item.id)
         : [];
 };
+
+const canResolveMany = computed(() =>
+    selected.value
+        .map((item) => props.items.find((i) => i.id === item))
+        .every((item) => item?.read)
+);
 </script>
