@@ -1,5 +1,5 @@
-import { Config } from 'ziggy-js';
-import { CartItem } from './cart';
+import { Config } from "ziggy-js";
+import { CartItem } from "./cart";
 
 export interface User {
     id: number;
@@ -8,12 +8,14 @@ export interface User {
     email_verified_at: string;
 }
 
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+export type PageProps<
+    T extends Record<string, unknown> = Record<string, unknown>
+> = T & {
     auth: {
         user: User;
     };
     ziggy: Config & { location: string };
-    cart?: Array<CartItem>
+    cart?: Array<CartItem>;
 };
 
 export interface PaginationLink {
@@ -40,4 +42,10 @@ export interface Contact {
     resolved: boolean;
     active?: boolean;
     sent_at?: string;
+}
+
+export interface ToastItem {
+    type: "success" | "error" | "info";
+    message: string;
+    timeout?: number;
 }

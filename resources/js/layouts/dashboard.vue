@@ -79,10 +79,13 @@
                     <slot />
             </main>
         </div>
+
+        <ToastWrapper />
     </div>
 </template>
 <script lang="ts" setup>
 import { usePage } from "@inertiajs/vue3";
+import ToastWrapper from "@/components/toast/wrapper.vue"
 import { UserCircleIcon, ChevronDownIcon } from "@heroicons/vue/24/solid";
 import {
     Bars2Icon,
