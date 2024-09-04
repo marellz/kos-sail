@@ -121,6 +121,8 @@ import {
 import { UserCircleIcon } from "@heroicons/vue/24/solid";
 import { router } from "@inertiajs/vue3";
 import { ref } from "vue";
+import { useToastStore } from "@/store/toasts";
+const toasts = useToastStore()
 const props = defineProps<{
     contact: Contact;
 }>();
@@ -130,7 +132,7 @@ defineOptions({
 });
 
 const goBack = () => {
-    history.back();
+    router.visit(document.referrer)
 };
 
 const update = (payload: object = {}) => {
@@ -169,7 +171,10 @@ const deleteMessage = () => {
     router.visit(route("admin.contacts.destroy", { id: props.contact.id }), {
         method: "delete",
         onSuccess() {
-            // throw toast
+            toasts.createToast({
+                type:"success",
+                message: `Successfully deleted the contact`,
+            })
         },
     });
 };

@@ -41,6 +41,8 @@ import ContactsTable from "@/components/admin/contact/table.vue";
 import { router } from "@inertiajs/vue3";
 import { ref, computed, onMounted } from "vue";
 import { type Contact } from "@/types/index";
+import { useToastStore } from "@/store/toasts";
+const toasts = useToastStore()
 defineOptions({
     layout: Dashboard,
 });
@@ -90,9 +92,12 @@ const update = (
     router.visit(route("admin.contacts.update", { id }), {
         method: "patch",
         data: { ...data },
-        onSuccess: () => {
-            // throw toast with message
-            console.log(message);
+        onSuccess: () => { 
+            const action = data.read ? 'read' : 'resolved'
+            toasts.createToast({
+                type:"success",
+                message: `Successfully marked as ${action}`,
+            })
         },
     });
 };
@@ -121,7 +126,10 @@ const updateMany = (action: "resolved" | "read") => {
         preserveState: true,
         preserveScroll: true,
         onSuccess: () => {
-            // throw toast
+            toasts.createToast({
+                type:"success",
+                message: `Successfully marked ${selected.value.length} contacts as ${action}`,
+            })
         },
     });
 };

@@ -107,28 +107,35 @@
                     <div class="flex items-center">
                         <button
                             type="button"
+                            :disabled="row.resolved"
+                            v-tooltip="{
+                                position: 'top-left',
+                                message: row.read
+                                    ? 'Mark as unread'
+                                    : 'Mark as read',
+                            }"
                             class="btn btn--sm items-center font-normal hover:text-warning"
                             @click.capture="markAsRead(row.id, !row.read)"
                         >
-                            <template v-if="row.read">
-                                <EnvelopeIcon class="h-5" />
-                                <p class="pt-1">Unread</p>
-                            </template>
-                            <template v-else>
-                                <EnvelopeOpenIcon class="h-5" />
-                                <p class="pt-1">Read</p>
-                            </template>
+                            <EnvelopeIcon v-if="row.read" class="h-5" />
+                            <EnvelopeOpenIcon v-else class="h-5" />
                         </button>
+
                         <button
                             type="button"
-                            :disabled="!row.read"
+                            v-tooltip="{
+                                position: 'top-left',
+                                message: row.resolved
+                                    ? 'Mark as unresolved'
+                                    : 'Mark as resolved',
+                            }"
+                            :disabled="!row.read || row.resolved"
                             class="btn btn--sm items-center font-normal hover:text-warning"
                             @click.capture="
                                 markAsResolved(row.id, !row.resolved)
                             "
                         >
                             <CheckBadgeIcon class="h-5" />
-                            <span>Resolve</span>
                         </button>
                     </div>
                 </td>
