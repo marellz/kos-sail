@@ -7,22 +7,23 @@ use App\Models\Contact;
 use App\Models\Product;
 use App\Models\User;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
     //
 
-    public function __construct (
+    public function __construct(
         private readonly ProductService $productService,
-    )
-    {
-        
+    ) {
     }
 
-    public function index ()
+    public function index()
     {
-        return Inertia::render('dashboard/index',[
+        Gate::authorize('view-admin-dashboard');
+
+        return Inertia::render('dashboard/index', [
             'stats' => [
                 'products' => Product::count(),
                 'users' => User::count(),

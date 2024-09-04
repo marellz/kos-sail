@@ -1,7 +1,5 @@
 <template>
     <page-head title="Register" />
-
-    
     <form @submit.prevent="submit">
         <div class="space-y-2">
             <page-title class="text-primary">Register</page-title>
@@ -75,6 +73,7 @@ const form = useForm({
     email: "",
     password: "",
     password_confirmation: "",
+    role_id: 3,
 });
 
 const submit = () => {

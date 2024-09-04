@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.index', absolute: false));
+        $admin_routes = collect([Role::ROLE_SUPERADMIN, Role::ROLE_ADMIN]);
+        
+        $route_name = $admin_routes->has($request->user()->role->id) ? 'admin.index' : 'profile.edit';
+
+        return redirect()->intended(route($route_name, absolute: false));
     }
 
     /**
