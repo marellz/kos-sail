@@ -44,11 +44,12 @@
             @apply md:text-lg lg:text-xl leading-7 py-2 md:py-3 px-6 md:px-8 lg:py-4 lg:px-10;
         }
 
-        &-icon{
+        &-icon {
             @apply inline-flex space-x-2 items-center border p-2 rounded-lg border-transparent;
         }
 
-        &, &--icon > svg {
+        &,
+        &--icon > svg {
             @apply flex-none;
         }
     }
@@ -150,3 +151,28 @@
         }
     }
 }
+
+.tooltip {
+    @apply absolute bg-[#333] text-white px-2.5 py-1 rounded text-xs pointer-events-none z-[20] whitespace-nowrap
+    after:block after:h-0 after:w-0 after:border-[6px] after:border-transparent after:transform after:absolute;
+
+    &--top {
+        @apply -translate-y-[130%] after:top-full after:left-1/2 after:-translate-x-1/2 after:border-t-[#333];
+    }
+    
+    &--bottom {
+        @apply translate-y-[130%] after:bottom-full after:left-1/2 after:-translate-x-1/2 after:border-b-[#333];
+    }
+
+    &--left {
+        @apply -translate-x-[110%] after:border-l-[#333] after:left-full after:top-1/2 after:-translate-y-1/2
+    }
+
+    &--top-left{
+        @apply -translate-x-[70%] -translate-y-[120%] after:border-t-[#333] after:top-full after:left-[75%] after:translate-x-[70%] after:-mt-px
+    }
+
+    &--right {}
+}
+
+
