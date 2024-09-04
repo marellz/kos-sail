@@ -1,5 +1,5 @@
 up:
-	./vendor/bin/sail up -d
+	./vendor/bin/sail up -d && npm run dev
 
 down:
 	./vendor/bin/sail down
