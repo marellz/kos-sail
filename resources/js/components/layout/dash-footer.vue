@@ -17,7 +17,7 @@
     </footer>
 </template>
 <script lang="ts" setup>
-import { type NavLink } from "@/types";
+import { type NavLink } from "@/types/index.d";
 const links: Array<NavLink> = [
     { label: "Main site", path: route("home"), components: ["welcome"] },
     { label: "Docs", path: "/docs", components: [] },

@@ -98,7 +98,7 @@
     </header>
 </template>
 <script lang="ts" setup>
-import { NavLink } from "@/types";
+import { type NavLink } from "@/types/index.d";
 import {
     Bars3BottomRightIcon,
     MagnifyingGlassIcon,

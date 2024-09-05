@@ -28,7 +28,7 @@
 import LayoutHeader from "@/components/layout/header.vue";
 import LayoutFooter from "@/components/layout/footer.vue";
 import ToastWrapper from "@/components/toast/wrapper.vue";
-import { NavLink } from "@/types";
+import { type NavLink } from "@/types/index.d";
 
 const links : Array<NavLink> = [
     {

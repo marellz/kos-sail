@@ -20,7 +20,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ToastItem } from "@/types";
+import { ToastItem } from "@/types/index.d";
 import { XCircleIcon } from "@heroicons/vue/24/solid";
 
 defineProps<{

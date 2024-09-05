@@ -106,7 +106,7 @@ import {
 } from "@heroicons/vue/24/outline";
 import { computed, ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
-import { NavLink } from "@/types";
+import { type NavLink } from "@/types/index.d";
 
 const { props } = usePage();
 

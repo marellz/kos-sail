@@ -1,5 +1,5 @@
 import { useId } from "@/composables/useId";
-import { ToastItem } from "@/types";
+import { ToastItem } from "@/types/index.d";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 

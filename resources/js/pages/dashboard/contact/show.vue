@@ -112,7 +112,7 @@
 
 <script lang="ts" setup>
 import Dashboard from "@/layouts/dashboard.vue";
-import { Contact } from "@/types";
+import { Contact } from "@/types/index.d";
 import {
     ArrowUturnLeftIcon,
     CheckBadgeIcon,
