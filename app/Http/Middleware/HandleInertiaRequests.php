@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Http\Resources\UserInformation;
 use App\Http\Resources\UserInformationResource;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
