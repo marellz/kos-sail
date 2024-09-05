@@ -70,11 +70,11 @@
                     <nav-link
                         v-if="!$page.props.auth.user"
                         as="button"
-                        class="inline-flex items-center text-xs md:text-base md:border border-gray-500 rounded-lg px-3 py-1 font-normal"
+                        class="inline-flex items-center space-x-2 text-sm md:border md:hover:bg-primary md:hover:border-primary md:hover:!text-white rounded-lg py-2 px-4"
                         href="/login"
                     >
+                        <UserCircleIcon class="h-6 opacity-50" />
                         <span class="hidden md:inline">Login</span>
-                        <UserCircleIcon class="h-6 md:hidden" />
                     </nav-link>
                     <nav-link
                         v-else
@@ -98,6 +98,7 @@
     </header>
 </template>
 <script lang="ts" setup>
+import { NavLink } from "@/types";
 import {
     Bars3BottomRightIcon,
     MagnifyingGlassIcon,
@@ -107,7 +108,8 @@ import {
 import { usePage } from "@inertiajs/vue3";
 import { onClickOutside } from "@vueuse/core";
 import { computed, ref, watch } from "vue";
-const links = ref([
+
+const links : Array<NavLink> = [
     {
         path: "/products",
         label: "Browse products",
@@ -118,7 +120,7 @@ const links = ref([
         label: "Categories",
         components: ["categories/index"],
     },
-]);
+];
 
 const nav = ref();
 const showNav = ref(false);

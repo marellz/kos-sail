@@ -19,15 +19,23 @@
                         :key="index"
                         :href="link.path"
                         class="inline-flex items-center space-x-2 py-2 px-6 text-sm rounded-full hover:bg-white hover:shadow transition-all"
-                        :class="{'text-white bg-dark hover:!bg-dark' : isActive(link.components)}"
+                        :class="{
+                            'text-white bg-dark hover:!bg-dark': isActive(
+                                link.components
+                            ),
+                        }"
                     >
-                        <component :is="link.icon" class="h-5 stroke-1" :class="{'stroke-2': isActive(link.components) }" />
+                        <component
+                            :is="link.icon"
+                            class="h-5 stroke-1"
+                            :class="{ 'stroke-2': isActive(link.components) }"
+                        />
                         <span class="mt-0.5">{{ link.label }}</span>
                     </nav-link>
                 </nav>
             </div>
         </div>
-        <div class="flex-auto h-screen overflow-auto">
+        <div class="flex-auto flex flex-col h-screen overflow-auto">
             <header class="py-6 sticky top-0 bg-white z-40 border-b">
                 <layout-container class="flex">
                     <div class="flex items-center space-x-2 flex-auto">
@@ -59,7 +67,7 @@
                                     <p class="font-medium">
                                         {{ user.name }}
                                     </p>
-                                    <p class="text-xs text-grey">Admin</p>
+                                    <p class="text-xs text-grey">{{ user.role.label }}</p>
                                 </div>
                                 <span class="bg-light-grey rounded-full p-1">
                                     <ChevronDownIcon class="h-5" />
@@ -75,18 +83,19 @@
                     </div>
                 </layout-container>
             </header>
-            <main class="py-8">
-                    <slot />
+            <main class="py-8 flex-auto">
+                <slot />
             </main>
+            <dash-footer />
         </div>
-
         <ToastWrapper />
     </div>
 </template>
 <script lang="ts" setup>
 import { usePage } from "@inertiajs/vue3";
-import ToastWrapper from "@/components/toast/wrapper.vue"
+import ToastWrapper from "@/components/toast/wrapper.vue";
 import { UserCircleIcon, ChevronDownIcon } from "@heroicons/vue/24/solid";
+import DashFooter from "@/components/layout/dash-footer.vue";
 import {
     Bars2Icon,
     ChevronLeftIcon,
@@ -97,6 +106,7 @@ import {
 } from "@heroicons/vue/24/outline";
 import { computed, ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import { NavLink } from "@/types";
 
 const { props } = usePage();
 
@@ -108,7 +118,7 @@ const toggleNav = () => {
     navActive.value = !navActive.value;
 };
 
-const links = ref([
+const links : Array<NavLink>  = [
     {
         path: "/dashboard",
         label: "Dashboard",
@@ -137,7 +147,7 @@ const links = ref([
         icon: EnvelopeIcon,
         components: ["dashboard/contact/index", "dashboard/contact/show"],
     },
-]);
+];
 
 const target = ref(null);
 
@@ -145,9 +155,9 @@ onClickOutside(target, () => {
     navActive.value = false;
 });
 
-const $page = usePage()
+const $page = usePage();
 
 const isActive = (components: Array<string>) => {
-    return components.includes($page.component)
-}
+    return components.includes($page.component);
+};
 </script>

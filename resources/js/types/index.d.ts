@@ -1,11 +1,17 @@
 import { Config } from "ziggy-js";
 import { CartItem } from "./cart";
+import { Component } from "vue";
 
 export interface User {
     id: number;
     name: string;
     email: string;
     email_verified_at: string;
+    role: {
+        id: number;
+        name: string;
+        label: string;
+    };
 }
 
 export type PageProps<
@@ -48,4 +54,11 @@ export interface ToastItem {
     type: "success" | "error" | "info";
     message: string;
     timeout?: number;
+}
+
+export interface NavLink {
+    components: Array<string>;
+    path: string;
+    icon?: Component;
+    label: string;
 }
