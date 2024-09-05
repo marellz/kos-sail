@@ -51,22 +51,12 @@ class PermissionSeeder extends Seeder
             "manage-sitedata" => [
                 "label" => "Manage site data",
                 "description" => "Manage the site content like contact urls, social url links etc",
-                "roles" => [Role::ROLE_SUPERADMIN ],
-            ],
-            "view-products" => [
-                "label" => "View products",
-                "description" => "Only view products",
-                "roles" => [Role::ROLE_SUPERADMIN, Role::ROLE_ADMIN, Role::ROLE_CLIENT],
+                "roles" => [Role::ROLE_SUPERADMIN, Role::ROLE_ADMIN ],
             ],
             "view-other-profiles" => [
                 "label" => "View other profiles",
                 "description" => "View other user profiles other than yours",
                 "roles" => [Role::ROLE_SUPERADMIN, Role::ROLE_ADMIN],
-            ],
-            "view-own-profile" => [
-                "label" => "View own profile",
-                "description" => "View and update your own user profile",
-                "roles" => [Role::ROLE_SUPERADMIN, Role::ROLE_ADMIN, Role::ROLE_CLIENT],
             ],
         ];
 
