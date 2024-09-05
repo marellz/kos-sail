@@ -73,10 +73,10 @@ const props = defineProps<{
 }>();
 
 const form = ref<ContactForm>({
-    name: "Dave Nj",
-    email: "email@test.com",
-    phone: "070707070",
-    message: "12312",
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
     subject: props.subject ?? "No suject",
 });
 
