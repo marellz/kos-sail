@@ -10,6 +10,7 @@ use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Services\ContactService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class ContactController extends Controller
@@ -26,6 +27,9 @@ class ContactController extends Controller
     public function index(Request $request)
     {
         //
+
+        Gate::authorize('manage-contacts');
+
         if($request->has('show_id')){
             $this->service->markAsRead($request->get('show_id'));
         }
@@ -49,6 +53,8 @@ class ContactController extends Controller
     public function show(Contact $contact)
     {
         //
+        Gate::authorize('manage-contacts');
+
         $contact->update(['read'=> true]);
 
         return Inertia::render('dashboard/contact/show', [
@@ -61,6 +67,8 @@ class ContactController extends Controller
     public function update(UpdateContactRequest $request, Contact $contact)
     {
         //
+        Gate::authorize('manage-contacts');
+        
         $this->service->update($contact, $request);
         return redirect()->back();
     }
@@ -71,6 +79,8 @@ class ContactController extends Controller
     public function updateMany(UpdateManyContactRequest $request)
     {
         //
+        Gate::authorize('manage-contacts');
+        
         $this->service->updateMany($request);
         return redirect()->back();
     }
@@ -81,6 +91,8 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         //
+        Gate::authorize('manage-contacts');
+        
         $this->service->destroy($contact);
         return redirect()->route('admin.contacts.index');
     }

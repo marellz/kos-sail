@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\ProductBrand;
 use App\Models\ProductSpecification;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -24,6 +25,8 @@ class ProductController extends Controller
 
     public function index()
     {
+        Gate::authorize('manage-products');
+
         return inertia('dashboard/products/index', [
             'products' => $this->service->collect($this->service->paginated()),
         ]);
@@ -31,6 +34,8 @@ class ProductController extends Controller
 
     public function create()
     {
+        Gate::authorize('manage-products');
+
         return inertia('dashboard/products/form', [
             'isEdit' => false,
             'categories' => Category::all(),
@@ -41,6 +46,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        Gate::authorize('manage-products');
+
         return inertia('dashboard/products/show', [
             'product' => new ProductResource($product),
         ]);
@@ -48,6 +55,8 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        Gate::authorize('manage-products');
+
         try {
             $product = $this->service->store($request);
             return redirect()->route('admin.products.show', ["product" => $product]);
@@ -58,8 +67,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        Gate::authorize('manage-products');
 
-        // dd($product->specifications);
         return inertia('dashboard/products/form', [
             'product' => new ProductResource($product),
             'isEdit' => true,
@@ -71,6 +80,8 @@ class ProductController extends Controller
 
     public function update(Product $product, UpdateProductRequest $request)
     {
+        Gate::authorize('manage-products');
+
         try {
             $this->service->update($product, $request);
             return redirect()->route('admin.products.show', ["product" => $product->slug]);
@@ -81,6 +92,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        Gate::authorize('manage-products');
+        
         try {
             $this->service->destroy($product);
             return redirect()->route('admin.products.index');
@@ -91,6 +104,8 @@ class ProductController extends Controller
 
     public function export ()
     {
+        Gate::authorize('manage-products');
+
         $url = Excel::download(new ProductsExport, 'products.xlsx');
         return $url;
     }

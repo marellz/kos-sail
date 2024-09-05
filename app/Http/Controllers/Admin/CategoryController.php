@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryCollection;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use Illuminate\Support\Facades\Gate;
 use App\Services\CategoryService;
-use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -21,6 +20,8 @@ class CategoryController extends Controller
 
     public function index()
     {
+        Gate::authorize('manage-categories');
+
         return inertia('dashboard/categories/index', [
             'categories' => new CategoryCollection($this->service->parents()),
         ]);
@@ -28,6 +29,8 @@ class CategoryController extends Controller
 
     public function create()
     {
+        Gate::authorize('manage-categories');
+
         return inertia('dashboard/categories/index', [
             'showForm'=> true,
             'categories' => $this->service->all(),
@@ -36,6 +39,8 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
+        Gate::authorize('manage-categories');
+
         return inertia('dashboard/categories/index', [
             'category' => $category,
             'categories' => $this->service->all(),
@@ -45,6 +50,8 @@ class CategoryController extends Controller
 
     public function store (StoreCategoryRequest $request)
     {
+        Gate::authorize('manage-categories');
+
         try {
             $this->service->store($request);
             return redirect()->route('admin.categories.index');
@@ -55,6 +62,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        Gate::authorize('manage-categories');
+
         return inertia('dashboard/categories/index', [
             'category' => $category,
             'categories' => $this->service->all(),
@@ -66,6 +75,8 @@ class CategoryController extends Controller
     public function update(Category $category, UpdateCategoryRequest $request)
     {
 
+        Gate::authorize('manage-categories');
+
         try {
             $this->service->update($category, $request);
             return redirect()->route('admin.categories.index');
@@ -76,6 +87,8 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        Gate::authorize('manage-categories');
+        
         return redirect()->route('admin.categories.index');
     }
 }

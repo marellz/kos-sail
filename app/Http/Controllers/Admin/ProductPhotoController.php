@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductPhotoRequest;
 use App\Models\Product;
 use App\Services\PhotoUploadService;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class ProductPhotoController extends Controller
@@ -21,6 +22,8 @@ class ProductPhotoController extends Controller
 
     public function store(StoreProductPhotoRequest $request, Product $product)
     {
+        Gate::authorize('manage-products');
+
         $path = $this->uploadService->upload($request->photo);
         // $product = $this->service->get($id);
         $image_array = $product->images ?? [];
@@ -39,6 +42,8 @@ class ProductPhotoController extends Controller
 
     public function destroy(string $path)
     {
+        Gate::authorize('manage-products');
+        
         if (Storage::exists($path)) {
             // remove from storage
 
