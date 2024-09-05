@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\UserInformation;
+use App\Http\Resources\UserInformationResource;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -31,10 +33,11 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $cartItems = $request->session()->get('cart', []);
+        $user = $request->user() ?? null;
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user ?  new UserInformationResource($request->user()) : null,
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
