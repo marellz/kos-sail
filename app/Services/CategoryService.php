@@ -16,7 +16,7 @@ class CategoryService
         //
     }
 
-    public function get ($id)
+    public function get($id)
     {
         return Category::findOrFail($id);
     }
@@ -26,14 +26,15 @@ class CategoryService
         return Category::whereNull('parent_id')->withCount(['products'])->get();
     }
 
-    public function all(bool $withProductCount = false) {
-        if($withProductCount){
+    public function all(bool $withProductCount = false)
+    {
+        if ($withProductCount) {
             return Category::withCount('products')->get();
         }
         return Category::all();
     }
 
-    public function store (StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         return Category::create($request->safe([
             'name',
@@ -43,7 +44,7 @@ class CategoryService
         ]));
     }
 
-    public function update (Category $category, UpdateCategoryRequest $request)
+    public function update(Category $category, UpdateCategoryRequest $request)
     {
         return $category->update($request->safe([
             'name',
@@ -53,8 +54,13 @@ class CategoryService
         ]));
     }
 
-    public function destroy ($id)
+    public function destroy(Category $category)
     {
-        return $this->get($id)->delete();
+
+        foreach ($category->products as $product) {
+            $product->update(['category_id' => null]);
+        }
+
+        return $category->delete();
     }
 }

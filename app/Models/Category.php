@@ -16,6 +16,8 @@ class Category extends Model
         'parent_id',
     ];
 
+    const UNCATEGORIZED = 'Uncategorized';
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');

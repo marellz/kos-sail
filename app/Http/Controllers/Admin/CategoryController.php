@@ -91,7 +91,7 @@ class CategoryController extends Controller
 
         $parent = $category->parent;
 
-        $category->delete();
+        $this->service->destroy($category);
 
         if($parent){
             return redirect()->route('admin.categories.show', ['category' => $parent]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,9 +24,16 @@ class ProductResource extends JsonResource
             'discount_price' => $this->discount_price,
             'featured_image' => $this->featured_image,
             'brand' => $this->brand ? $this->brand->only(['id', 'name']) : [],
-            'category' => $this->category->only(['id','slug','name']),
+            'category' =>
+            $this->category ?
+                $this->category->only(['id', 'slug', 'name'])
+                : [
+                    'id' => null,
+                    'slug' => null,
+                    'name' => Category::UNCATEGORIZED
+                ],
             'short_description' => $this->short_description,
-            'images' => collect($this->images)->map(function($path){
+            'images' => collect($this->images)->map(function ($path) {
                 return asset($path);
             }),
             'specifications' => $this->specifications,
