@@ -7,6 +7,7 @@ import FormGroup from "@/components/form/group.vue";
 import FormText from "@/components/form/text.vue";
 import FormSelect from "@/components/form/select.vue";
 import FormQuantity from "@/components/form/quantity.vue";
+import FormSwitch from "@/components/form/switch.vue";
 
 import FilterSearch from "@/components/filter/search.vue";
 import FilterToggle from "@/components/filter/toggle.vue";
@@ -41,6 +42,7 @@ export const components = {
     "form-text": FormText,
     "form-select": FormSelect,
     "form-quantity": FormQuantity,
+    "form-switch": FormSwitch,
 
     "filter-search": FilterSearch,
     "filter-toggle": FilterToggle,
