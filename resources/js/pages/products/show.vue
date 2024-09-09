@@ -141,9 +141,7 @@
                         <table>
                             <tbody>
                                 <tr
-                                    v-for="(spec, key) in JSON.parse(
-                                        _product.specifications
-                                    )"
+                                    v-for="(spec, key) in  _product.specifications"
                                     :key="`spec-${key}`"
                                     class="border-b"
                                 >
@@ -158,19 +156,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
-                        <!-- <div class="flex">
-                            <div>
-                                <p v-for="(spec, key) in JSON.parse(_product.specifications)" :key="`spec-${key}`" class="flex items-center mb-3 border-b">
-                                    <span class="w-24 pr-4 mr-4 py-2 text-gray-500 text-sm">
-                                        {{ key }}
-                                    </span>
-                                    <span>
-                                        {{ spec }}
-                                    </span>
-                                </p>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
