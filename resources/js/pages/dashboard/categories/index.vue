@@ -1,7 +1,7 @@
 <template>
     <page-head title="Admin | Categories"></page-head>
     <layout-container>
-        <div class="flex flex-col sm:flex-row items-start sm:items-center space-x-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 md:space-y-0 md:space-x-4">
             <page-title>Categories</page-title>
             <form-switch v-model="showList">
                 <p>Cards</p>
@@ -41,7 +41,7 @@ import { type Category } from "@/types/category";
 
 import { ref } from "vue";
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         showForm?: boolean;
         showItem?: boolean;
@@ -58,4 +58,5 @@ defineOptions({
 });
 
 const showList = ref(false);
+
 </script>

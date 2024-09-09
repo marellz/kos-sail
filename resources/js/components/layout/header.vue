@@ -95,6 +95,37 @@
                 </div>
             </div>
         </layout-container>
+
+        <div
+            v-show="searchActive"
+            @click.self="searchActive = false"
+            class="fixed inset-0 bg-dark z-50 bg-opacity-50 flex justify-center pt-20 items-start"
+        >
+            <div class="w-full max-w-lg bg-white rounded-xl py-10 px-8">
+                <div class="flex items-center justify-between">
+                    <page-title>Search</page-title>
+                    <button type="button" @click="searchActive = false">
+                        <XCircleIcon  class="h-6"/>
+                    </button>
+                </div>
+                <p class="text-grey mt-2">Search. Products. Categories. Things.</p>
+                <div class="mt-10">
+                    <form @submit.prevent="search">
+                        <div class="space-y-4 justify-end flex flex-col">
+                            <input
+                                type="text"
+                                class="form-input"
+                                v-model="searchQuery"
+                            />
+                            <base-button class="btn--icon btn--primary">
+                                <MagnifyingGlassIcon class="h-5" />
+                                <span>Search</span></base-button
+                            >
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </header>
 </template>
 <script lang="ts" setup>
@@ -104,12 +135,13 @@ import {
     MagnifyingGlassIcon,
     ShoppingBagIcon,
     UserCircleIcon,
+XCircleIcon,
 } from "@heroicons/vue/24/outline";
-import { usePage } from "@inertiajs/vue3";
+import { router, usePage } from "@inertiajs/vue3";
 import { onClickOutside } from "@vueuse/core";
 import { computed, ref, watch } from "vue";
 
-const links : Array<NavLink> = [
+const links: Array<NavLink> = [
     {
         path: "/products",
         label: "Browse products",
@@ -124,7 +156,6 @@ const links : Array<NavLink> = [
 
 const nav = ref();
 const showNav = ref(false);
-const searchActive = ref(false);
 const cart = computed(() => usePage().props.cart ?? {});
 const cartItems = computed(() => Object.keys(cart.value).length);
 onClickOutside(nav, () => {
@@ -140,4 +171,14 @@ watch(
     },
     { deep: true }
 );
+
+const searchActive = ref(false);
+const searchQuery = ref("");
+const search = () => {
+    router.visit(route("search", { q: searchQuery.value }), {
+        onFinish() {
+            searchActive.value = false;
+        },
+    });
+};
 </script>

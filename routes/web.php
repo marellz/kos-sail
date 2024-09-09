@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\ProductPhotoController as AdminProductPhotoContro
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
