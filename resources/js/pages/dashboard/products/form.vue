@@ -32,6 +32,7 @@
                             label="Category"
                             v-model="form.category_id"
                             :error="errors.category_id"
+                            required
                         >
                             <option
                                 :value="category.id"

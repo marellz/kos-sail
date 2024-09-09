@@ -40,22 +40,25 @@
             <!-- details -->
             <div class="row-start-1 lg:col-span-2">
                 <div class="space-y-5">
-                    <div
-                        class="flex justify-between items-center flex-wrap-reverse"
-                    >
+                    <div class="flex space-x-4 items-center flex-wrap-reverse">
                         <p class="text-lg text-grey">Product details</p>
                         <nav-link
                             :href="`${route('admin.products.edit', {
                                 id: item.slug,
                             })}`"
                             as="button"
-                            class="btn btn--outline-secondary"
+                            class="!ml-auto btn px-5 btn--outline-secondary"
                         >
-                            <span class="leading-normal">
-                                Edit this product
-                            </span>
                             <PencilSquareIcon class="h-5" />
+                            <span class="leading-normal"> Edit </span>
                         </nav-link>
+                        <base-button
+                            class="btn px-5 border-error text-error hover:text-white hover:bg-error"
+                            @click="deleteProduct"
+                        >
+                            <span class="leading-normal"> Delete </span>
+                            <TrashIcon class="h-5" />
+                        </base-button>
                     </div>
                     <div>
                         <h1 class="text-4xl">{{ item.name }}</h1>
@@ -162,10 +165,18 @@ import { type Product } from "@/types/products";
 import Dashboard from "@/layouts/dashboard.vue";
 import { computed } from "vue";
 import { ref } from "vue";
-import { CheckCircleIcon, ExclamationCircleIcon, PencilSquareIcon } from "@heroicons/vue/24/outline";
+import {
+    CheckCircleIcon,
+    ExclamationCircleIcon,
+    PencilSquareIcon,
+    TrashIcon,
+} from "@heroicons/vue/24/outline";
 import PictureModal from "@/components/base/picture-modal.vue";
+import { router } from "@inertiajs/vue3";
+import { useToastStore } from "@/store/toasts";
+const toasts = useToastStore();
 const props = defineProps<{
-    product:  Product;
+    product: Product;
 }>();
 
 defineOptions({
@@ -176,4 +187,30 @@ const activeImageIndex = ref<null | number>(null);
 const item = computed(() => props.product);
 const specifications = computed(() => item.value.specifications);
 const images = item.value?.images;
+
+const deleteProduct = () => {
+    if(!confirm('Really?')){
+        return false
+    }
+    router.visit(
+        route("admin.products.destroy", {
+            product: props.product.slug,
+        }),
+        {
+            method: "delete",
+            onSuccess() {
+                toasts.createToast({
+                    message: "Successfully deleted the product",
+                    type: "success",
+                });
+            },
+            onError() {
+                 toasts.createToast({
+                    message: "Error deleting the product",
+                    type: "error",
+                });
+            }
+        }
+    );
+};
 </script>

@@ -67,6 +67,7 @@ import ProductCard from "@/components/admin/products/card.vue";
 import { router } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
+import { useToastStore } from "@/store/toasts";
 
 defineOptions({
     layout: Dashboard,
@@ -87,6 +88,8 @@ const props = defineProps<{
     showForm?: boolean;
     showProduct?: boolean;
 }>();
+
+const toasts = useToastStore();
 
 const currentPage = computed(() => props.products.meta.current_page);
 
@@ -116,6 +119,18 @@ const deleteProduct = (slug: string) => {
             }`,
             {
                 method: "delete",
+                onSuccess() {
+                    toasts.createToast({
+                        message: "Successfully deleted the product",
+                        type: "success",
+                    });
+                },
+                onError() {
+                    toasts.createToast({
+                        message: "Error deleting the product",
+                        type: "error",
+                    });
+                },
                 onFinish() {
                     console.log("Product deleted!");
                 },
