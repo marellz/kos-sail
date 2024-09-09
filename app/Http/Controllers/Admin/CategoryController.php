@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Gate;
 use App\Services\CategoryService;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -27,12 +29,12 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
         Gate::authorize('manage-categories');
 
-        return inertia('dashboard/categories/index', [
-            'showForm'=> true,
+        return inertia('dashboard/categories/form', [
+            'parent_id' => $request->get('parent') ?? '',
             'categories' => $this->service->all(),
         ]);
     }
@@ -41,20 +43,18 @@ class CategoryController extends Controller
     {
         Gate::authorize('manage-categories');
 
-        return inertia('dashboard/categories/index', [
-            'category' => $category,
-            'categories' => $this->service->all(),
-            'showItem' => true
+        return inertia('dashboard/categories/show', [
+            'category' => new CategoryResource($category),
         ]);
     }
 
-    public function store (StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         Gate::authorize('manage-categories');
 
         try {
-            $this->service->store($request);
-            return redirect()->route('admin.categories.index');
+            $category = $this->service->store($request);
+            return redirect()->route('admin.categories.show', ['category' => $category]);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -64,11 +64,9 @@ class CategoryController extends Controller
     {
         Gate::authorize('manage-categories');
 
-        return inertia('dashboard/categories/index', [
+        return inertia('dashboard/categories/form', [
             'category' => $category,
             'categories' => $this->service->all(),
-            'showItem' => false,
-            'showForm' => true
         ]);
     }
 
@@ -79,7 +77,9 @@ class CategoryController extends Controller
 
         try {
             $this->service->update($category, $request);
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('admin.categories.show', [
+                'category' => $category,
+            ]);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -88,7 +88,15 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         Gate::authorize('manage-categories');
-        
-        return redirect()->route('admin.categories.index');
+
+        $parent = $category->parent;
+
+        $category->delete();
+
+        if($parent){
+            return redirect()->route('admin.categories.show', ['category' => $parent]);
+        } else {
+            return redirect()->route('admin.categories.index');
+        }
     }
 }

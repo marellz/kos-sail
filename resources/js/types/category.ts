@@ -1,10 +1,14 @@
+import { Product } from "./products";
+
 export interface Category {
     id: string;
     name: string;
+    slug: string;
     description: string;
     parent_id?: string;
     product_count?: number;
     subcategories?: Array<Category>;
+    products?: Array<Product>
 }
 
 export interface CategoryForm {

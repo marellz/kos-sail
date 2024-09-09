@@ -14,6 +14,7 @@ class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $products = $this->products;
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -21,7 +22,9 @@ class CategoryResource extends JsonResource
             'description' => $this->description,
             'is_parent' => $this->parent_id === null,
             'parent_id' => $this->parent_id,
-            'subcategories' => CategoryResource::collection($this->children)
+            'subcategories' => CategoryResource::collection($this->children),
+            'products' => $products,
+            'product_count' => $products->count(),
         ];
 
     }

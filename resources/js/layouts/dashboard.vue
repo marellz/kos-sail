@@ -139,7 +139,7 @@ const links : Array<NavLink>  = [
         path: "/dashboard/categories",
         label: "Categories",
         icon: QueueListIcon,
-        components: ["dashboard/categories/index"],
+        components: ["dashboard/categories/index", "dashboard/categories/show", "dashboard/categories/form"],
     },
     {
         path: "/dashboard/contact", // todo: use route('name')

@@ -1,9 +1,12 @@
 <template>
-    <div class="pt-5 rounded-lg flex flex-col overflow-hidden border">
+    <div class="py-5 rounded-lg flex flex-col overflow-hidden border group">
         <div class="flex-auto px-6">
-            <h1 class="text-xl font-semibold">
-                {{ category.name }}
-            </h1>
+            <div class="flex justify-between">
+                <h1 class="text-xl font-semibold">
+                    {{ category.name }}
+                </h1>
+                <ArrowTopRightOnSquareIcon class="h-5 opacity-30 group-hover:opacity-100" />
+            </div>
 
             <div v-if="category.description">
                 <p
@@ -34,27 +37,17 @@
                 </li>
             </ul>
         </div>
-        <div class="mt-4">
-            <button
-                type="button"
-                class="inline-flex w-full items-center justify-center space-x-3 px-6 py-4 hover:bg-gray-100"
-                @click="$emit('show-item', category.id)"
-            >
-                <span class="text-[10px] font-bold">VIEW CATEGORY</span>
-                <PencilSquareIcon class="h-4" />
-            </button>
-        </div>
     </div>
 </template>
 <script lang="ts" setup>
-import { PencilSquareIcon } from "@heroicons/vue/24/outline";
+import { ArrowTopRightOnSquareIcon, PencilSquareIcon } from "@heroicons/vue/24/outline";
 import { type Category } from "@/types/category";
 import { ref } from "vue";
 defineProps<{
     category: Category;
 }>();
 
-defineEmits(['show-item']);
+defineEmits(['show']);
 
 const fullDescription = ref(false);
 </script>

@@ -23,10 +23,13 @@ class CategoryService
 
     public function parents()
     {
-        return Category::whereNull('parent_id')->get();
+        return Category::whereNull('parent_id')->withCount(['products'])->get();
     }
 
-    public function all() {
+    public function all(bool $withProductCount = false) {
+        if($withProductCount){
+            return Category::withCount('products')->get();
+        }
         return Category::all();
     }
 
