@@ -100,12 +100,6 @@ const submitForm = () => {
 };
 
 const closeForm = () => {
-    // if (props.category) {
-    // let slug = props.category.slug
-    // route("admin.categories.show", { slug })
-    // router.visit(document.referrer);
-    // }
-
     history.back();
 };
 

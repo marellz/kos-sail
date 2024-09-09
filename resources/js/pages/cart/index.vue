@@ -228,10 +228,6 @@ const updateItem = (slug: string, quantity: number) => {
         },
         preserveScroll: true,
         preserveState: true,
-        onSuccess() {
-            // console.log('updated', quantity);
-            
-        }
     });
 };
 

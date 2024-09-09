@@ -39,7 +39,7 @@ import AdminCategoryTree from "@/components/admin/categories/tree.vue";
 import AdminAddButton from "@/components/admin/add-btn.vue";
 import { type Category } from "@/types/category";
 
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 const props = withDefaults(
     defineProps<{

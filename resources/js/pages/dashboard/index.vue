@@ -56,7 +56,6 @@ import Dashboard from "@/layouts/dashboard.vue";
 import { Product } from "@/types/products";
 import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
 import ProductTag from "@/components/admin/products/tag.vue";
-import { router } from "@inertiajs/vue3";
 
 interface Stats {
     products: number;

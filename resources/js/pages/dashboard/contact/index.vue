@@ -39,7 +39,7 @@ import Dashboard from "@/layouts/dashboard.vue";
 import { type PaginationLink } from "@/types/index";
 import ContactsTable from "@/components/admin/contact/table.vue";
 import { router } from "@inertiajs/vue3";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { type Contact } from "@/types/index";
 import { useToastStore } from "@/store/toasts";
 const toasts = useToastStore()
@@ -86,8 +86,7 @@ const openRow = (id: number) => {
 
 const update = (
     id: number,
-    data: { read?: boolean; resolved?: boolean },
-    message: string
+    data: { read?: boolean; resolved?: boolean }
 ) => {
     router.visit(route("admin.contacts.update", { id }), {
         method: "patch",
@@ -103,11 +102,11 @@ const update = (
 };
 
 const markAsResolved = (id: number) => {
-    update(id, { resolved: true }, "Marked as resolved!");
+    update(id, { resolved: true });
 };
 
 const markAsRead = (id: number) => {
-    update(id, { read: true }, "Marked as read!");
+    update(id, { read: true });
 };
 
 const resetList = () => {
