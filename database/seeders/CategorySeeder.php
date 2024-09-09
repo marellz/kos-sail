@@ -67,14 +67,6 @@ class CategorySeeder extends Seeder
         foreach ($categories as $name => $content) {
             $this->runFactory($name, $content, null);
         }
-
-        foreach(range(1,20) as $round){
-            $id = Category::inRandomOrder()->first()->id;
-            Category::factory()->create([
-                'name' => 'Random category '.fake()->numberBetween(100, 999),
-                'parent_id' => $id
-            ]);
-        }
     }
 
     public function runFactory(string $name, array $category = [], int | null $parent)

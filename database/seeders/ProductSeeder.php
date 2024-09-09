@@ -52,15 +52,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/cordless-drill.jpg',
-                'images' => json_encode([
+                'images' => [
                     '/images/products/cordless-drill-1.jpg',
                     '/images/products/cordless-drill-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' => [
                     'Power' => '500W',
                     'Battery' => '18V',
                     'Speed' => '0-1500 RPM'
-                ]),
+                ],
                 'price' => 16000,
                 'discount_price' => 12500,
                 'in_stock' => true,
@@ -74,15 +74,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 2,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/electric-chainsaw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/electric-chainsaw-1.jpg',
                     '/images/products/electric-chainsaw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '2000W',
                     'Bar Length' => '18 inches',
                     'Weight' => '12 lbs'
-                ]),
+                ],
                 'price' => 15000,
                 'discount_price' => 13000,
                 'in_stock' => true,
@@ -96,15 +96,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 3,
                 'brand_id' => 5,
                 'featured_image' => '/images/products/garden-shovel.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/garden-shovel-1.jpg',
                     '/images/products/garden-shovel-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Material' => 'Steel',
                     'Handle' => 'Wooden',
                     'Length' => '40 inches'
-                ]),
+                ],
                 'price' => 3500,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -118,15 +118,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 4,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/pressure-washer.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/pressure-washer-1.jpg',
                     '/images/products/pressure-washer-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Pressure' => '2500 PSI',
                     'Flow Rate' => '2.5 GPM',
                     'Power' => 'Electric'
-                ]),
+                ],
                 'price' => 20000,
                 'discount_price' => 18500,
                 'in_stock' => true,
@@ -140,15 +140,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 5,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/lawn-mower.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/lawn-mower-1.jpg',
                     '/images/products/lawn-mower-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => 'Gasoline',
                     'Cutting Width' => '21 inches',
                     'Weight' => '50 lbs'
-                ]),
+                ],
                 'price' => 28500,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -162,15 +162,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 6,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/leaf-blower.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/leaf-blower-1.jpg',
                     '/images/products/leaf-blower-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1500W',
                     'Air Speed' => '200 MPH',
                     'Weight' => '8 lbs'
-                ]),
+                ],
                 'price' => 6900,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -184,15 +184,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 7,
                 'brand_id' => 5,
                 'featured_image' => '/images/products/hedge-trimmer.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/hedge-trimmer-1.jpg',
                     '/images/products/hedge-trimmer-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Blade Length' => '24 inches',
                     'Power' => 'Electric',
                     'Weight' => '7 lbs'
-                ]),
+                ],
                 'price' => 8000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -206,15 +206,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 8,
                 'brand_id' => 4,
                 'featured_image' => '/images/products/snow-blower.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/snow-blower-1.jpg',
                     '/images/products/snow-blower-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => 'Gasoline',
                     'Clearing Width' => '28 inches',
                     'Weight' => '80 lbs'
-                ]),
+                ],
                 'price' => 5000,
                 'discount_price' => 3900,
                 'in_stock' => true,
@@ -228,15 +228,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 9,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/circular-saw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/circular-saw-1.jpg',
                     '/images/products/circular-saw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1200W',
                     'Blade Diameter' => '7.25 inches',
                     'Speed' => '5000 RPM'
-                ]),
+                ],
                 'price' => 9000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -250,14 +250,14 @@ class ProductSeeder extends Seeder
                 'category_id' => 10,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/screwdriver-set.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/screwdriver-set-1.jpg',
                     '/images/products/screwdriver-set-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Material' => 'Steel',
                     'Handle' => 'Ergonomic'
-                ]),
+                ],
                 'price' => 1300,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -272,15 +272,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/cordless-screwdriver.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/cordless-screwdriver-1.jpg',
                     '/images/products/cordless-screwdriver-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '200W',
                     'Battery' => '12V',
                     'Speed' => '0-1200 RPM'
-                ]),
+                ],
                 'price' => 2000,
                 'discount_price' => 1800,
                 'in_stock' => true,
@@ -294,15 +294,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 2,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/hammer-drill.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/hammer-drill-1.jpg',
                     '/images/products/hammer-drill-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '800W',
                     'Speed' => '0-3000 RPM',
                     'Hammering Rate' => '0-45000 BPM'
-                ]),
+                ],
                 'price' => 8000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -316,15 +316,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 3,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/angle-grinder.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/angle-grinder-1.jpg',
                     '/images/products/angle-grinder-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '750W',
                     'Disc Diameter' => '4.5 inches',
                     'Speed' => '11000 RPM'
-                ]),
+                ],
                 'price' => 5000,
                 'discount_price' => 4500,
                 'in_stock' => false,
@@ -338,15 +338,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 4,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/jigsaw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/jigsaw-1.jpg',
                     '/images/products/jigsaw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '500W',
                     'Stroke Length' => '20mm',
                     'Speed' => '0-3000 SPM'
-                ]),
+                ],
                 'price' => 4000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -360,15 +360,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 5,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/table-saw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/table-saw-1.jpg',
                     '/images/products/table-saw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1500W',
                     'Blade Diameter' => '10 inches',
                     'Speed' => '4800 RPM'
-                ]),
+                ],
                 'price' => 25000,
                 'discount_price' => 23000,
                 'in_stock' => true,
@@ -382,15 +382,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 6,
                 'brand_id' => 4,
                 'featured_image' => '/images/products/tile-cutter.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/tile-cutter-1.jpg',
                     '/images/products/tile-cutter-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Cutting Capacity' => '24 inches',
                     'Type' => 'Manual',
                     'Weight' => '15 lbs'
-                ]),
+                ],
                 'price' => 10000,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -404,15 +404,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 7,
                 'brand_id' => 5,
                 'featured_image' => '/images/products/sledgehammer.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/sledgehammer-1.jpg',
                     '/images/products/sledgehammer-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Weight' => '10 lbs',
                     'Handle' => 'Fiberglass',
                     'Length' => '36 inches'
-                ]),
+                ],
                 'price' => 3000,
                 'discount_price' => 2700,
                 'in_stock' => true,
@@ -426,15 +426,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 8,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/rotary-tool.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/rotary-tool-1.jpg',
                     '/images/products/rotary-tool-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '200W',
                     'Speed' => '5000-35000 RPM',
                     'Weight' => '1.5 lbs'
-                ]),
+                ],
                 'price' => 3500,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -448,15 +448,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 9,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/socket-wrench-set.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/socket-wrench-set-1.jpg',
                     '/images/products/socket-wrench-set-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Material' => 'Chrome Vanadium Steel',
                     'Sizes' => '10-32mm',
                     'Case' => 'Plastic'
-                ]),
+                ],
                 'price' => 12000,
                 'discount_price' => 11000,
                 'in_stock' => false,
@@ -470,15 +470,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 10,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/corded-drill.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/corded-drill-1.jpg',
                     '/images/products/corded-drill-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '600W',
                     'Speed' => '0-2800 RPM',
                     'Chuck Size' => '13mm'
-                ]),
+                ],
                 'price' => 7000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -492,15 +492,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 11,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/reciprocating-saw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/reciprocating-saw-1.jpg',
                     '/images/products/reciprocating-saw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '850W',
                     'Speed' => '0-3000 SPM',
                     'Stroke Length' => '28mm'
-                ]),
+                ],
                 'price' => 9000,
                 'discount_price' => 8500,
                 'in_stock' => true,
@@ -514,15 +514,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 12,
                 'brand_id' => 4,
                 'featured_image' => '/images/products/heat-gun.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/heat-gun-1.jpg',
                     '/images/products/heat-gun-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1500W',
                     'Temperature' => '60-600°C',
                     'Weight' => '0.8 kg'
-                ]),
+                ],
                 'price' => 3000,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -536,15 +536,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 13,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/electric-planer.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/electric-planer-1.jpg',
                     '/images/products/electric-planer-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '900W',
                     'Planing Width' => '82mm',
                     'Speed' => '16000 RPM'
-                ]),
+                ],
                 'price' => 15000,
                 'discount_price' => 14000,
                 'in_stock' => true,
@@ -558,15 +558,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 14,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/mitre-saw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/mitre-saw-1.jpg',
                     '/images/products/mitre-saw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1400W',
                     'Blade Diameter' => '10 inches',
                     'Speed' => '4500 RPM'
-                ]),
+                ],
                 'price' => 20000,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -580,15 +580,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 15,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/palm-sander.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/palm-sander-1.jpg',
                     '/images/products/palm-sander-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '200W',
                     'Speed' => '14000 OPM',
                     'Weight' => '1 kg'
-                ]),
+                ],
                 'price' => 2500,
                 'discount_price' => 2200,
                 'in_stock' => true,
@@ -602,15 +602,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 16,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/bench-grinder.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/bench-grinder-1.jpg',
                     '/images/products/bench-grinder-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '350W',
                     'Wheel Diameter' => '6 inches',
                     'Speed' => '3450 RPM'
-                ]),
+                ],
                 'price' => 12000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -624,15 +624,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 17,
                 'brand_id' => 4,
                 'featured_image' => '/images/products/corded-circular-saw.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/corded-circular-saw-1.jpg',
                     '/images/products/corded-circular-saw-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1500W',
                     'Blade Diameter' => '7.25 inches',
                     'Speed' => '5500 RPM'
-                ]),
+                ],
                 'price' => 9000,
                 'discount_price' => 8500,
                 'in_stock' => false,
@@ -646,15 +646,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 18,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/cordless-impact-driver.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/cordless-impact-driver-1.jpg',
                     '/images/products/cordless-impact-driver-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '18V',
                     'Torque' => '170 Nm',
                     'Speed' => '0-2800 RPM'
-                ]),
+                ],
                 'price' => 15000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -668,15 +668,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 19,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/shop-vacuum.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/shop-vacuum-1.jpg',
                     '/images/products/shop-vacuum-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1200W',
                     'Capacity' => '20 liters',
                     'Weight' => '7 kg'
-                ]),
+                ],
                 'price' => 8000,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -690,15 +690,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 20,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/laser-level.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/laser-level-1.jpg',
                     '/images/products/laser-level-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Range' => '50 meters',
                     'Accuracy' => '±0.2mm/m',
                     'Battery Life' => '20 hours'
-                ]),
+                ],
                 'price' => 5000,
                 'discount_price' => 4500,
                 'in_stock' => true,
@@ -712,15 +712,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 21,
                 'brand_id' => 4,
                 'featured_image' => '/images/products/pressure-washer.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/pressure-washer-1.jpg',
                     '/images/products/pressure-washer-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '1800W',
                     'Pressure' => '150 bar',
                     'Flow Rate' => '6 l/min'
-                ]),
+                ],
                 'price' => 18000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -734,15 +734,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 22,
                 'brand_id' => 1,
                 'featured_image' => '/images/products/cordless-lawn-mower.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/cordless-lawn-mower-1.jpg',
                     '/images/products/cordless-lawn-mower-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '36V',
                     'Cutting Width' => '40cm',
                     'Battery Life' => '60 minutes'
-                ]),
+                ],
                 'price' => 25000,
                 'discount_price' => 23000,
                 'in_stock' => false,
@@ -756,15 +756,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 23,
                 'brand_id' => 2,
                 'featured_image' => '/images/products/electric-paint-sprayer.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/electric-paint-sprayer-1.jpg',
                     '/images/products/electric-paint-sprayer-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '600W',
                     'Flow Rate' => '1200 ml/min',
                     'Weight' => '2.5 kg'
-                ]),
+                ],
                 'price' => 8000,
                 'discount_price' => null,
                 'in_stock' => true,
@@ -778,15 +778,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 24,
                 'brand_id' => 3,
                 'featured_image' => '/images/products/workbench.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/workbench-1.jpg',
                     '/images/products/workbench-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Material' => 'Steel and MDF',
                     'Dimensions' => '120x60x90 cm',
                     'Weight Capacity' => '200 kg'
-                ]),
+                ],
                 'price' => 12000,
                 'discount_price' => 11000,
                 'in_stock' => true,
@@ -800,15 +800,15 @@ class ProductSeeder extends Seeder
                 'category_id' => 25,
                 'brand_id' => 4,
                 'featured_image' => '/images/products/welding-machine.jpg',
-                'images' => json_encode([
+                'images' =>[
                     '/images/products/welding-machine-1.jpg',
                     '/images/products/welding-machine-2.jpg'
-                ]),
-                'specifications' => json_encode([
+                ],
+                'specifications' =>[
                     'Power' => '200A',
                     'Voltage' => '220V',
                     'Weight' => '8 kg'
-                ]),
+                ],
                 'price' => 20000,
                 'discount_price' => null,
                 'in_stock' => false,
@@ -822,7 +822,7 @@ class ProductSeeder extends Seeder
         }
 
         foreach (collect($products)->pluck(['specifications']) as $specs) {
-            foreach(json_decode($specs) as $spec => $val){
+            foreach($specs as $spec => $val){
                 if(!ProductSpecification::where('name', $spec)->exists()){
                     ProductSpecification::create([
                         'name' => $spec,
